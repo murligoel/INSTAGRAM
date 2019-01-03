@@ -1,4 +1,4 @@
-package com.example.android.instagram;
+package com.example.android.instagram.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.android.instagram.R;
 import com.example.android.instagram.activity.LoginActivity;
 import com.example.android.instagram.activity.SignUpActivity;
 
