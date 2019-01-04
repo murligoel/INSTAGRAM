@@ -1,6 +1,7 @@
 package com.example.android.instagram.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,8 +15,10 @@ import com.example.android.instagram.httpservice.HttpClientService;
 import com.example.android.instagram.interfaces.APIService;
 import com.example.android.instagram.model.Auth;
 import com.example.android.instagram.model.Result;
+import com.example.android.instagram.activity.UserProfileActivity;
 
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,6 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(getApplicationContext(), userResponse.body().getToken(), Toast.LENGTH_LONG).show();
                     token = userResponse.body().getToken();
                     Log.e("value",token);
+                    getAuth();
                     //    SharedPreference.getInstance(getApplicationContext()).;
                     // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                 }
@@ -82,6 +86,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
+    }
+
+    public void getAuth(){
+
+        APIService service = HttpClientService.getClient().create(APIService.class);
+
+        Call<ResponseBody> call = service.getAuth("JWT " +token);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "authentication successfull", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "token is not correct", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 

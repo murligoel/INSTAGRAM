@@ -19,4 +19,7 @@ public interface APIService {
 
     @POST("/login")
     Call<Auth> createUser(@Body Result result);
+
+    @GET("user/classroom/")
+    Call<ResponseBody> getAuth(@Header("Authorization") String authToken);
 }
