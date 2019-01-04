@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,7 +26,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button buttonLogIn;
+    private Button buttonLogIn,activityAfterLogin;
     private EditText userName,password;
     private static String token;
 
@@ -35,10 +36,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         buttonLogIn = (Button) findViewById(R.id.login_button);
+        activityAfterLogin = (Button) findViewById(R.id.activity_after_login);
 
         userName = (EditText) findViewById(R.id.login_username);
         password = (EditText) findViewById(R.id.login_password);
         buttonLogIn.setOnClickListener(this);
+        activityAfterLogin.setOnClickListener(this);
     }
 
     private void userLogIn(){
@@ -119,7 +122,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 if(v == buttonLogIn){
                     userLogIn();
-        }
+                }
+                 else if(v == activityAfterLogin){
+                    startActivity(new Intent(this, UserProfileActivity.class));
+                }
 
     }
 }
