@@ -16,7 +16,7 @@ public class HttpClientService {
 
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://www.sae-akgec.in/api/v1/")
+                .baseUrl("")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

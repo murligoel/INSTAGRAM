@@ -47,12 +47,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         progressDialog.setMessage("Signing Up...");
         progressDialog.show();
 
+        String user_name = userName.getText().toString().trim();
+        String user_password = password.getText().toString().trim();
+
+
+        if(user_name.isEmpty()){
+            progressDialog.dismiss();
+            userName.setError("Username should not be empty");
+            userName.requestFocus();
+            return;
+        }
+
+        if(user_password.isEmpty()){
+            progressDialog.dismiss();
+            password.setError("Password should not be empty");
+            password.requestFocus();
+            return;
+        }
+
         APIService service = HttpClientService.getClient().create(APIService.class);
 
         Result result = new Result();
 
-        result.setUsername( userName.getText().toString().trim());
-        result.setPassword( password.getText().toString().trim());
+        result.setUsername(user_name);
+        result.setPassword(user_password);
 
 
 
