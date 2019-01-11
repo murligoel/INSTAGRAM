@@ -17,19 +17,19 @@
         android:textAlignment="center"/>
 
 
-        <EditText android:id="@+id/login_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:inputType="textEmailAddress"
-            android:hint="Username" />
+    <EditText android:id="@+id/login_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="textEmailAddress"
+        android:hint="Username" />
 
-        <EditText android:id="@+id/login_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:inputType="textPassword"
-            android:hint="Password" />
+    <EditText android:id="@+id/login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="textPassword"
+        android:hint="Password" />
 
     <Button android:id="@+id/login_button"
         android:layout_width="match_parent"
@@ -55,10 +55,10 @@
         android:text="@string/text" />
 
     <!--<Button-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="30dp"-->
-        <!--android:hint="SignUp" -->
-        <!--android:layout_marginLeft=""/>-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="30dp"-->
+    <!--android:hint="SignUp" -->
+    <!--android:layout_marginLeft=""/>-->
 
 </LinearLayout>

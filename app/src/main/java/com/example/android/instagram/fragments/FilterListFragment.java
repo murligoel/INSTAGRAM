@@ -3,18 +3,32 @@ package com.example.android.instagram.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.android.instagram.Adapter.ThumbnailAdapter;
+import com.example.android.instagram.Interface.FiltersListFragmentListener;
 import com.example.android.instagram.R;
+import com.zomato.photofilters.utils.ThumbnailItem;
+
+import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FilterListFragment extends Fragment {
+    RecyclerView recyclerView;
+    ThumbnailAdapter adapter;
+    List<ThumbnailItem> thumbnailItems;
 
+    FiltersListFragmentListener listener;
+
+    public FiltersListFragmentListener getListener() {
+        return listener;
+    }
 
     public FilterListFragment() {
         // Required empty public constructor
