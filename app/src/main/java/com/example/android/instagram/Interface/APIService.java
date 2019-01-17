@@ -1,4 +1,4 @@
-package com.example.android.instagram.interfaces;
+package com.example.android.instagram.Interface;
 
 import com.example.android.instagram.model.Auth;
 import com.example.android.instagram.model.User;
