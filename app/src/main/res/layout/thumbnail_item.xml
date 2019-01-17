@@ -16,6 +16,7 @@
 
     <ImageView
         android:id="@+id/thumbnail"
+        android:src="@mipmap/ic_launcher"
         android:scaleType="centerCrop"
         android:layout_width="80dp"
         android:layout_height="80dp"

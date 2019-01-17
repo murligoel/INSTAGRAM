@@ -3,16 +3,21 @@ package com.example.android.instagram.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.support.v7.widget.Toolbar;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.example.android.instagram.Adapter.ViewPagerAdapter;
@@ -32,6 +37,7 @@ import com.zomato.photofilters.imageprocessors.subfilters.BrightnessSubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.ContrastSubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.SaturationSubfilter;
 
+import java.io.IOException;
 import java.util.List;
 
 public class FilterActivity extends AppCompatActivity implements FiltersListFragmentListener,EditImageFragmentListener {
@@ -87,6 +93,7 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
 
     private void loadImage() {
         originalBitmap = BitmapUtils.getBitmapFromAssets(this,pictureName,100,100);
+        assert originalBitmap != null;
         filteredBitmap = originalBitmap.copy(Bitmap.Config.ARGB_8888,true);
         finalBitmap = originalBitmap.copy(Bitmap.Config.ARGB_8888,true);
         img_preview.setImageBitmap(originalBitmap);
@@ -199,15 +206,54 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         if(report.areAllPermissionsGranted()){
-                            final String path = BitmapUtils.
+                            try {
+                                final String path = BitmapUtils.insertImage(getContentResolver(),
+                                        finalBitmap,
+                                        System.currentTimeMillis()+"profile.jpg"
+                                        ,null);
+
+                                if(!TextUtils.isEmpty(path))
+                                {
+                                    Snackbar snackbar = Snackbar.make(coordinatorLayout,
+                                            "Image Saved to Gallery",
+                                            Snackbar.LENGTH_LONG)
+                                            .setAction("OPEN", new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    openImage(path);
+                                                }
+                                            });
+                                    snackbar.show();
+                                }
+                                else {
+                                    Snackbar snackbar = Snackbar.make(coordinatorLayout,
+                                            "Unable to save images",
+                                            Snackbar.LENGTH_LONG);
+                                    snackbar.show();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(FilterActivity.this, "permission denied", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-
+                         token.continuePermissionRequest();
                     }
-                });
+                })
+        .check();
+    }
+
+    private void openImage(String path) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse(path),"image/*");
+        startActivity(intent);
     }
 
     private void openImageFromGallery() {
@@ -231,7 +277,8 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
                     public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
                       token.continuePermissionRequest();
                     }
-                });
+                })
+        .check();
     }
 
     @Override

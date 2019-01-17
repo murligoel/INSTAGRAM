@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.android.instagram.Interface.FiltersListFragmentListener;
 import com.example.android.instagram.R;
+import com.zomato.photofilters.imageprocessors.Filter;
 import com.zomato.photofilters.utils.ThumbnailItem;
 
 import org.w3c.dom.Text;
@@ -27,10 +28,23 @@ public class ThumbnailAdapter extends RecyclerView.Adapter<ThumbnailAdapter.MyVi
     private Context context;
     private int selectedIndex = 0;
 
-    public ThumbnailAdapter(List<ThumbnailItem> thumbnailItems,FiltersListFragmentListener listener,Context contex){
+    public ThumbnailAdapter(List<ThumbnailItem> thumbnailItems,FiltersListFragmentListener listener,Context context){
         this.thumbnailItems = thumbnailItems;
         this.listener = listener;
         this.context = context;
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        ImageView thumbnail;
+        TextView filter_name;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
+            filter_name = (TextView) itemView.findViewById(R.id.filter_name);
+        }
     }
 
     @NonNull
@@ -71,16 +85,8 @@ public class ThumbnailAdapter extends RecyclerView.Adapter<ThumbnailAdapter.MyVi
         return thumbnailItems.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView thumbnail;
-        TextView filter_name;
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
-            filter_name = (TextView) itemView.findViewById(R.id.filter_name);
-        }
+    public interface ThumbnailsAdapterListener {
+        void onFilterSelected(Filter filter);
     }
+
 }

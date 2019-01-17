@@ -23,8 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.UserProfileActivity" />
-        <activity android:name=".activity.FilterActivity"></activity>
-        <!--<activity android:name=".fragments.LoginFragment" />-->
+        <activity android:name=".activity.FilterActivity"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen"/>
 
     </application>
 

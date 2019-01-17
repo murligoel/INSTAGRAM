@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -175,14 +176,43 @@ public class BitmapUtils {
                 uri = null;
             }
         }
-        if (uri != null) {
+        if (uri != null)
             stringUrl = uri.toString();
             return stringUrl;
         }
 
-    }
+        private static final Bitmap storeThumbail(ContentResolver cr, Bitmap source, long id, float width, float height, int kind) {
+            Matrix matrix = new Matrix();
 
-    private static void storeThumbail(ContentResolver cr, Bitmap miniThumb, long id, float v, float v1, int microKind) {
-    }
+            float scaleX = width / source.getWidth();
+            float scaleY = height / source.getHeight();
+
+            matrix.setScale(scaleX, scaleY);
+
+            Bitmap thumb = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+
+            ContentValues contentValues = new ContentValues(4);
+            contentValues.put(MediaStore.Images.Thumbnails.KIND, kind);
+            contentValues.put(MediaStore.Images.Thumbnails.IMAGE_ID, id);
+            contentValues.put(MediaStore.Images.Thumbnails.HEIGHT, height);
+            contentValues.put(MediaStore.Images.Thumbnails.WIDTH, width);
+
+            Uri uri = cr.insert(MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, contentValues);
+            try {
+
+                OutputStream outputStream = cr.openOutputStream(uri);
+                thumb.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
+                outputStream.close();
+                return thumb;
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return null;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
 
 }
