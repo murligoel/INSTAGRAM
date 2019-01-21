@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.SignUpActivity"
-    android:background="@drawable/background"
+    android:background="@drawable/background_gradient"
     android:orientation="vertical">
 
     <ImageView
@@ -16,27 +16,28 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginBottom="472dp"
+        android:layout_marginBottom="518dp"
         android:src="@drawable/instagram_logo" />
 
     <TextView
-        android:layout_width="314dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="34dp"
-        android:layout_marginLeft="34dp"
-        android:layout_marginTop="74dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:layout_marginBottom="409dp"
-        android:background="@drawable/round_rect_shape"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginBottom="445dp"
+        android:background="@drawable/heading_gradient"
         android:text="SIGN UP"
         android:textAlignment="center"
-        android:textSize="25dp" />
+        android:textColor="@color/black"
+        android:textSize="30dp" />
 
     <EditText
         android:id="@+id/signup_username"
@@ -45,10 +46,11 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="85dp"
-        android:layout_marginBottom="333dp"
+        android:layout_marginTop="211dp"
+        android:layout_marginBottom="372dp"
         android:hint="Username"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textColorHint="@color/white" />
 
 
     <EditText
@@ -59,9 +61,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="272dp"
+        android:layout_marginBottom="312dp"
         android:hint="Password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColorHint="@color/white"/>
 
     <EditText
         android:id="@+id/signup_email"
@@ -71,9 +74,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="213dp"
+        android:layout_marginBottom="253dp"
         android:hint="Email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textColorHint="@color/white"/>
 
     <EditText
         android:id="@+id/signup_firstname"
@@ -83,9 +87,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="155dp"
+        android:layout_marginBottom="192dp"
         android:hint="First Name"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textColorHint="@color/white"/>
 
     <EditText
         android:id="@+id/signup_lastname"
@@ -95,34 +100,31 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="94dp"
+        android:layout_marginBottom="132dp"
         android:hint="Last Name"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textColorHint="@color/white"/>
 
     <Button
         android:id="@+id/signup_button"
-        android:layout_width="30dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="175dp"
-        android:layout_marginLeft="175dp"
-        android:layout_marginEnd="179dp"
-        android:layout_marginRight="179dp"
-        android:layout_marginBottom="43dp"
-        android:background="@drawable/round_button"
-        android:text="Login"
-        android:textColor="@color/black" />
-    <!--<Button android:id="@+id/signup_button"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:inputType="textEmailAddress"-->
-        <!--android:hint="SignUp"-->
-        <!--android:textSize="20dp"/>-->
+        android:layout_marginStart="134dp"
+        android:layout_marginLeft="134dp"
+        android:layout_marginEnd="133dp"
+        android:layout_marginRight="133dp"
+        android:layout_marginBottom="69dp"
+        android:background="@drawable/button_gradient"
+        android:elevation="50dp"
+        android:text="SIGN UP"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/go_to_login"

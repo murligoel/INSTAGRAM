@@ -9,4 +9,5 @@
     <string name="brightness">BRIGHTNESS</string>
     <string name="constraint">CONSTRAINT</string>
     <string name="saturation">saturation</string>
+    <string name="reset_password"><u>Reset Password</u></string>
 </resources>
