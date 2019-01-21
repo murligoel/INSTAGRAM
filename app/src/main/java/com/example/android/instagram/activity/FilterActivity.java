@@ -8,6 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,7 +23,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import com.example.android.instagram.Adapter.ViewPagerAdapter;
 import com.example.android.instagram.Interface.EditImageFragmentListener;
 import com.example.android.instagram.Interface.FiltersListFragmentListener;
 import com.example.android.instagram.R;
@@ -38,6 +40,7 @@ import com.zomato.photofilters.imageprocessors.subfilters.ContrastSubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.SaturationSubfilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FilterActivity extends AppCompatActivity implements FiltersListFragmentListener,EditImageFragmentListener {
@@ -302,5 +305,34 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
 
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 }

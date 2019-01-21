@@ -43,12 +43,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
         buttonLogIn = (Button) v.findViewById(R.id.login_button);
-        activityAfterLogin = (Button) v.findViewById(R.id.activity_after_login);
+//        activityAfterLogin = (Button) v.findViewById(R.id.activity_after_login);
 
         userName = (EditText) v.findViewById(R.id.login_username);
         password = (EditText) v.findViewById(R.id.login_password);
         buttonLogIn.setOnClickListener(this);
-        activityAfterLogin.setOnClickListener(this);
+//        activityAfterLogin.setOnClickListener(this);
 
         return v;
     }
@@ -159,9 +159,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         if(v == buttonLogIn){
             userLogIn();
         }
-        else if(v == activityAfterLogin){
-            Intent intent = new Intent(getActivity(), UserProfileActivity.class);
-            startActivity(intent);
-        }
+//        else if(v == activityAfterLogin){
+//            Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+//            startActivity(intent);
+//        }
     }
 }

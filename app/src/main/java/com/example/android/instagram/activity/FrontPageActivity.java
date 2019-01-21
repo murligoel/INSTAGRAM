@@ -34,6 +34,7 @@ public class FrontPageActivity extends AppCompatActivity implements View.OnClick
             public void onClick(View v) {
                 buttonLogIn.setVisibility(GONE);
                 buttonSignUp.setVisibility(GONE);
+                buttonFilter.setVisibility(GONE);
                 FragmentManager fm = getSupportFragmentManager();
                 SignUpFragment fr = new SignUpFragment();
                 fm.beginTransaction().replace(R.id.container,fr).commit();
@@ -44,6 +45,7 @@ public class FrontPageActivity extends AppCompatActivity implements View.OnClick
             public void onClick(View v) {
                 buttonLogIn.setVisibility(GONE);
                 buttonSignUp.setVisibility(GONE);
+                buttonFilter.setVisibility(GONE);
                 FragmentManager fm = getSupportFragmentManager();
                 LoginFragment fr = new LoginFragment();
                 fm.beginTransaction().replace(R.id.container,fr).commit();
