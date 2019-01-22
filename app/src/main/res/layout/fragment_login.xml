@@ -10,34 +10,34 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="95dp"
+        android:layout_height="141dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginBottom="518dp"
+        android:layout_marginBottom="472dp"
         android:src="@drawable/instagram_logo" />
 
-    <TextView
-        android:layout_width="375dp"
-        android:layout_height="45dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="17dp"
-        android:layout_marginLeft="17dp"
-        android:layout_marginTop="39dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="18dp"
-        android:layout_marginBottom="423dp"
-        android:background="@drawable/heading_gradient"
-        android:text="LOGIN"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="30dp" />
+    <!--<TextView-->
+        <!--android:layout_width="375dp"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="17dp"-->
+        <!--android:layout_marginLeft="17dp"-->
+        <!--android:layout_marginTop="39dp"-->
+        <!--android:layout_marginEnd="18dp"-->
+        <!--android:layout_marginRight="18dp"-->
+        <!--android:layout_marginBottom="423dp"-->
+        <!--android:background="@drawable/heading_gradient"-->
+        <!--android:text="LOGIN"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="30dp" />-->
 
 
     <EditText
@@ -48,10 +48,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="211dp"
-        android:layout_marginBottom="342dp"
+        android:layout_marginBottom="373dp"
         android:hint="Username"
-        android:textColorHint="@color/white"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textColorHint="@color/white" />
 
     <EditText
         android:id="@+id/login_password"
@@ -61,10 +61,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="281dp"
-        android:layout_marginBottom="262dp"
+        android:layout_marginBottom="285dp"
         android:hint="Password"
-        android:textColorHint="@color/white"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColorHint="@color/white" />
 
     <Button
         android:id="@+id/login_button"

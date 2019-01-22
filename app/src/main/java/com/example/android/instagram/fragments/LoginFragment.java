@@ -50,6 +50,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         buttonLogIn.setOnClickListener(this);
 //        activityAfterLogin.setOnClickListener(this);
 
+        buttonLogIn.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+                startActivity(intent);
+                return false;
+            }
+        });
+
         return v;
     }
 

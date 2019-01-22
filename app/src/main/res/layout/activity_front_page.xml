@@ -7,7 +7,7 @@
     android:id="@+id/container"
     tools:context=".activity.FrontPageActivity"
     android:orientation="vertical"
-    android:background="@drawable/background">
+    android:background="@drawable/background_gradient">
 
 
     <ImageView
@@ -34,7 +34,9 @@
         android:text="@string/signup"
         android:textSize="18dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dp" />
+        android:layout_marginLeft="0dp"
+        android:background="@drawable/button_gradient"
+        android:elevation="20dp"/>
 
     <Button
         android:id="@+id/buttonLogin"
@@ -48,22 +50,8 @@
         android:text="@string/login"
         android:textSize="18dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dp" />
-
-    <Button
-        android:id="@+id/buttonFilter"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="180dp"
-        android:text="Filter"
-        android:textSize="18dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dp" />
-
-
+        android:layout_marginLeft="0dp"
+        android:background="@drawable/button_gradient"
+        android:elevation="20dp"/>
 
 </RelativeLayout>

@@ -26,7 +26,7 @@ import retrofit2.Response;
 
 public class SignUpFragment extends Fragment implements View.OnClickListener{
 
-    private TextView login;
+
     private Button buttonSignUp;
     private EditText userName, password, email, firstName, lastName;
 
@@ -48,9 +48,14 @@ public class SignUpFragment extends Fragment implements View.OnClickListener{
         lastName = (EditText) v.findViewById(R.id.signup_lastname);
         buttonSignUp.setOnClickListener(this);
 
-        login = (TextView) v.findViewById(R.id.go_to_login);
-
-        login.setOnClickListener(this);
+//        login = (Button) v.findViewById(R.id.go_to_login);
+//
+//        login.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
         return v;
     }
@@ -154,11 +159,11 @@ public class SignUpFragment extends Fragment implements View.OnClickListener{
         if(v == buttonSignUp){
               userSignUp();
         }
-        else if (v == login) {
-
-            Intent i = new Intent(getActivity(), LoginFragment.class);
-            startActivity(i);
-        }
+//        else if (v == login) {
+//
+//            Intent i = new Intent(getActivity(), LoginFragment.class);
+//            startActivity(i);
+//        }
     }
     }
 

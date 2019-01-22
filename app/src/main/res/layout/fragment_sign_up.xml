@@ -6,38 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".activity.SignUpActivity"
     android:background="@drawable/background_gradient"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/container1">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="95dp"
+        android:layout_height="120dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginBottom="518dp"
+        android:layout_marginBottom="493dp"
         android:src="@drawable/instagram_logo" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="18dp"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="39dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginRight="17dp"
-        android:layout_marginBottom="445dp"
-        android:background="@drawable/heading_gradient"
-        android:text="SIGN UP"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="30dp" />
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="18dp"-->
+        <!--android:layout_marginLeft="18dp"-->
+        <!--android:layout_marginTop="39dp"-->
+        <!--android:layout_marginEnd="17dp"-->
+        <!--android:layout_marginRight="17dp"-->
+        <!--android:layout_marginBottom="445dp"-->
+        <!--android:background="@drawable/heading_gradient"-->
+        <!--android:text="SIGN UP"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="30dp" />-->
 
     <EditText
         android:id="@+id/signup_username"
@@ -46,8 +48,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="211dp"
-        android:layout_marginBottom="372dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="431dp"
         android:hint="Username"
         android:inputType="textEmailAddress"
         android:textColorHint="@color/white" />
@@ -61,10 +63,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="312dp"
+        android:layout_marginBottom="364dp"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textColorHint="@color/white"/>
+        android:textColorHint="@color/white" />
 
     <EditText
         android:id="@+id/signup_email"
@@ -74,10 +76,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="253dp"
+        android:layout_marginBottom="300dp"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:textColorHint="@color/white"/>
+        android:textColorHint="@color/white" />
 
     <EditText
         android:id="@+id/signup_firstname"
@@ -87,10 +89,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="192dp"
+        android:layout_marginBottom="236dp"
         android:hint="First Name"
         android:inputType="textEmailAddress"
-        android:textColorHint="@color/white"/>
+        android:textColorHint="@color/white" />
 
     <EditText
         android:id="@+id/signup_lastname"
@@ -100,10 +102,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="132dp"
+        android:layout_marginBottom="168dp"
         android:hint="Last Name"
         android:inputType="textEmailAddress"
-        android:textColorHint="@color/white"/>
+        android:textColorHint="@color/white" />
 
     <Button
         android:id="@+id/signup_button"
@@ -114,11 +116,11 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="134dp"
-        android:layout_marginLeft="134dp"
-        android:layout_marginEnd="133dp"
-        android:layout_marginRight="133dp"
-        android:layout_marginBottom="69dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginLeft="132dp"
+        android:layout_marginEnd="135dp"
+        android:layout_marginRight="135dp"
+        android:layout_marginBottom="89dp"
         android:background="@drawable/button_gradient"
         android:elevation="50dp"
         android:text="SIGN UP"
@@ -126,17 +128,17 @@
         android:textSize="20dp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/go_to_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="7dp"
-        android:text="LogIn"
-        android:textAlignment="center"
-        android:textSize="20dp" />
+    <!--<Button-->
+        <!--android:id="@+id/go_to_login"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="0dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginBottom="7dp"-->
+        <!--android:text="LogIn"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textSize="20dp" />-->
 
 </RelativeLayout>
