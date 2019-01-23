@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/container_profile"
     tools:context=".activity.UserProfileActivity">
 
     <!--<ImageView-->
@@ -19,5 +20,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="gallery" />
+
+    <Button
+        android:id="@+id/user_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Profile" />
+
 
 </LinearLayout>

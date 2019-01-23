@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.android.instagram.R;
+import com.example.android.instagram.fragments.ProfileFragment;
+import com.example.android.instagram.fragments.SignUpFragment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,7 +25,7 @@ import java.io.InputStream;
 public class UserProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final int IMAGE_GALLERY_REQUEST  = 20;
-    private Button imageFromGallery;
+    private Button imageFromGallery,userProfile;
     private ImageView img;
 
     @Override
@@ -31,11 +34,13 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_user_profile);
 
         imageFromGallery = (Button) findViewById(R.id.images_from_gallery);
+        userProfile = (Button) findViewById(R.id.user_profile);
 //
 //        // get a reference to the image view that holds the image that the user will see.
 //        img = (ImageView) findViewById(R.id.imgPicture);
 //
         imageFromGallery.setOnClickListener(this);
+        userProfile.setOnClickListener(this);
     }
 
 
@@ -93,6 +98,12 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 //            openGallery();
             Intent intent = new Intent(UserProfileActivity.this, FilterActivity.class);
             startActivity(intent);
+        }
+
+        if(v == userProfile){
+            FragmentManager fm = getSupportFragmentManager();
+            ProfileFragment fr = new ProfileFragment();
+            fm.beginTransaction().replace(R.id.container_profile,fr).commit();
         }
     }
 }

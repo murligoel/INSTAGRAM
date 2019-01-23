@@ -20,6 +20,7 @@ import com.example.android.instagram.R;
 import com.example.android.instagram.httpservice.HttpClientService;
 import com.example.android.instagram.model.User;
 
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -47,15 +48,6 @@ public class SignUpFragment extends Fragment implements View.OnClickListener{
         firstName = (EditText) v.findViewById(R.id.signup_firstname);
         lastName = (EditText) v.findViewById(R.id.signup_lastname);
         buttonSignUp.setOnClickListener(this);
-
-//        login = (Button) v.findViewById(R.id.go_to_login);
-//
-//        login.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
 
         return v;
     }
@@ -126,13 +118,13 @@ public class SignUpFragment extends Fragment implements View.OnClickListener{
         user.setFirst_name(first_name);
         user.setLast_name(last_name);
 
-        retrofit2.Call<User> call = service.createUser(user);
+        Call<User> call = service.createUser(user);
 
 
 
         call.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(retrofit2.Call<User> call, Response<User> userResponse) {
+            public void onResponse(Call<User> call, Response<User> userResponse) {
                 progressDialog.dismiss();
                 if(userResponse.isSuccessful()) {
                     Toast.makeText(getActivity(), "successful", Toast.LENGTH_LONG).show();
@@ -145,7 +137,7 @@ public class SignUpFragment extends Fragment implements View.OnClickListener{
             }
 
             @Override
-            public void onFailure(retrofit2.Call<User> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(getActivity(), "error", Toast.LENGTH_LONG).show();
             }
@@ -159,11 +151,7 @@ public class SignUpFragment extends Fragment implements View.OnClickListener{
         if(v == buttonSignUp){
               userSignUp();
         }
-//        else if (v == login) {
-//
-//            Intent i = new Intent(getActivity(), LoginFragment.class);
-//            startActivity(i);
-//        }
+
     }
     }
 
