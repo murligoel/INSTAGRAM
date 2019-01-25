@@ -30,10 +30,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private Button buttonLogIn,activityAfterLogin;
     private EditText userName,password;
     private static String token;
+    private  static int user_id;
+
 
     public LoginFragment() {
         // Required empty public constructor
     }
+
 
 
     @Override
@@ -100,20 +103,20 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
 
 
-        Call<Auth> call = service.createUser(result);
+        Call<Result> call = service.createUser(result);
 
 
 
-        call.enqueue(new Callback<Auth>() {
+        call.enqueue(new Callback<Result>() {
             @Override
-            public void onResponse( Call<Auth> call, Response<Auth> userResponse) {
+            public void onResponse( Call<Result> call, Response<Result> userResponse) {
                 progressDialog.dismiss();
 
                 if(userResponse.isSuccessful()) {
-                    Toast.makeText(getActivity(), userResponse.body().getToken(), Toast.LENGTH_LONG).show();
-                    token = userResponse.body().getToken();
-                    Log.e("value",token);
-                    getAuth();
+                    Toast.makeText(getActivity(), userResponse.body().getUserId(), Toast.LENGTH_LONG).show();
+                    user_id = userResponse.body().getUserId();
+                    Log.e("value",user_id+"");
+                    getToken();
                     //    SharedPreference.getInstance(getApplicationContext()).;
                     // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                 }
@@ -123,8 +126,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
             }
 
+
+
             @Override
-            public void onFailure( Call<Auth> call, Throwable t) {
+            public void onFailure( Call<Result> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(getActivity(), "error", Toast.LENGTH_LONG).show();
             }
@@ -132,19 +137,33 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    public void getAuth(){
+    public static int get_user_id() {
+        return user_id;
+    }
+
+    public void getToken(){
+
+        String user_name = userName.getText().toString().trim();
+        String user_password = password.getText().toString().trim();
 
         APIService service = HttpClientService.getClient().create(APIService.class);
 
-        Call<ResponseBody> call = service.getAuth("JWT " +token);
+        Auth auth = new Auth();
 
-        call.enqueue(new Callback<ResponseBody>() {
+        auth.setUsername(user_name);
+        auth.setPassword(user_password);
+
+        Call<Auth> call = service.fetchToken(auth);
+
+
+        call.enqueue(new Callback<Auth>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<Auth> call, Response<Auth> response) {
                 if (response.isSuccessful()){
 //                    Toast.makeText(getApplicationContext(), "authentication successfull", Toast.LENGTH_LONG).show();
 //                    Toast.makeText(<>, "Please long press the key", Toast.LENGTH_LONG );
-                    Toast.makeText(getActivity(),"authentication successfull",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),response.body().getToken(),Toast.LENGTH_LONG).show();
+                    token = response.body().getToken();
 
                 }
                 else{
@@ -153,11 +172,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<Auth> call, Throwable t) {
 
                 Toast.makeText(getActivity(), "error", Toast.LENGTH_LONG).show();
             }
         });
+    }
+    public static String get_Token() {
+        return token;
     }
 
 

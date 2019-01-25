@@ -3,7 +3,8 @@ package com.example.android.instagram.model;
 public class Auth {
 
     private String username;
-    private String token;
+    private String password;
+    private static String token;
 
 
     public String getUsername() {
@@ -14,11 +15,19 @@ public class Auth {
         this.username = username;
     }
 
-    public String getToken() {
+    public static String getToken() {
         return token;
     }
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

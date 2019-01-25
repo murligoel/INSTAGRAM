@@ -4,6 +4,7 @@ public class User {
 
     private String username;
     private String password;
+    private String confirm_password;
     private String email;
     private String first_name;
     private String last_name;
@@ -52,4 +53,11 @@ public class User {
     }
 
 
+    public String getConfirm_password() {
+        return confirm_password;
+    }
+
+    public void setConfirm_password(String confirm_password) {
+        this.confirm_password = confirm_password;
+    }
 }

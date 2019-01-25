@@ -1,6 +1,7 @@
 package com.example.android.instagram.Interface;
 
 import com.example.android.instagram.model.Auth;
+import com.example.android.instagram.model.Profile;
 import com.example.android.instagram.model.User;
 import com.example.android.instagram.model.Result;
 
@@ -11,15 +12,29 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface APIService {
 
-    @POST("auth/register/")
+    //sign up
+    @POST("register/")
     Call<User> createUser(@Body User user);
 
-    @POST("/login")
-    Call<Auth> createUser(@Body Result result);
+    //login
+    @POST("login/")
+    Call<Result> createUser(@Body Result result);
 
-    @GET("user/classroom/")
-    Call<ResponseBody> getAuth(@Header("Authorization") String authToken);
+    //token fetch
+    @POST("auth-jwt/")
+    Call<Auth> fetchToken(@Body Auth auth);
+
+
+//    @POST("auth-jwt-verify/")
+//    //Call<ResponseBody> getAuth(@Header("Authorization") String authToken);
+//    Call<ResponseBody> getAuth(@Header("Authorization") String authToken);
+
+    @PUT("profile/{id}")
+    Call<Profile> putPost(@Path("id") int id, @Body Profile profile, @Header("Authorization") String authToken);
+
 }
