@@ -86,7 +86,7 @@ public class ProfileFragment extends Fragment {
         profile.setPhone_number(phone_number);
         profile.setBirth_date(birth_date);
 
-        Call<Profile> call = service.putPost(LoginFragment.get_user_id(),profile,LoginFragment.get_Token());
+        Call<Profile> call = service.putPost(LoginFragment.get_user_id(),profile,"JWT " +LoginFragment.get_Token());
 
         call.enqueue(new Callback<Profile>() {
             @Override

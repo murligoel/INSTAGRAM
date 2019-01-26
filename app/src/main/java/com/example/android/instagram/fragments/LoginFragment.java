@@ -164,6 +164,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 //                    Toast.makeText(<>, "Please long press the key", Toast.LENGTH_LONG );
                     Toast.makeText(getActivity(),response.body().getToken(),Toast.LENGTH_LONG).show();
                     token = response.body().getToken();
+                    Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+                    startActivity(intent);
 
                 }
                 else{

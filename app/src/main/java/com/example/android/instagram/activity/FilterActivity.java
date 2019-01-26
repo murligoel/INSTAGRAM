@@ -1,7 +1,9 @@
 package com.example.android.instagram.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -47,6 +49,8 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
 
     public static final String pictureName = "flash.jpg";
     public static final int PERMISSION_PICK_IMAGE = 1000;
+    public static final int CAMERA_REQUEST = 1888;
+    private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
     ImageView img_preview;
     TabLayout tabLAyout;
@@ -198,8 +202,28 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
             saveImageToGallery();
             return true;
         }
+
+        if(id == R.id.action_camera){
+            openCamera();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
+
+    private void openCamera() {
+
+            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cameraIntent, CAMERA_REQUEST);
+    }
+
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == CAMERA_REQUEST && resultCode == FilterActivity.RESULT_OK) {
+//            Bitmap photo = (Bitmap) data.getExtras().get("data");
+//            imageView.setImageBitmap(photo);
+//        }
+//    }
+
+
 
     private void saveImageToGallery() {
         Dexter.withActivity(this)
@@ -303,9 +327,23 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
 
             filterListFragment.displayThumbnail(originalBitmap);
 
+        }else if(requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+
+            originalBitmap.recycle();
+            finalBitmap.recycle();
+            filteredBitmap.recycle();
+
+            originalBitmap = photo.copy(Bitmap.Config.ARGB_8888,true);
+            finalBitmap = originalBitmap.copy(Bitmap.Config.ARGB_8888,true);
+            filteredBitmap = originalBitmap.copy(Bitmap.Config.ARGB_8888,true);
+            img_preview.setImageBitmap(originalBitmap);
+
+            filterListFragment.displayThumbnail(originalBitmap);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
