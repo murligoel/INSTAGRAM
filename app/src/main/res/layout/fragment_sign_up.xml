@@ -5,20 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.SignUpActivity"
-    android:background="@drawable/background_gradient"
     android:orientation="vertical"
     android:id="@+id/container1">
+    <!--android:background="@drawable/background_gradient"-->
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginBottom="493dp"
-        android:src="@drawable/instagram_logo" />
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="120dp"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="0dp"-->
+        <!--android:layout_marginLeft="0dp"-->
+        <!--android:layout_marginBottom="493dp"-->
+        <!--android:src="@drawable/instagram_logo" />-->
 
 
     <!--<TextView-->

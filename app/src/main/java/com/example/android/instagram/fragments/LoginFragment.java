@@ -30,7 +30,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private Button buttonLogIn,activityAfterLogin;
     private EditText userName,password;
     private static String token;
-    private  static int user_id;
+    private  static String userId;
 
 
     public LoginFragment() {
@@ -114,8 +114,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
                 if(userResponse.isSuccessful()) {
                     Toast.makeText(getActivity(), userResponse.body().getUserId(), Toast.LENGTH_LONG).show();
-                    user_id = userResponse.body().getUserId();
-                    Log.e("value",user_id+"");
+                    userId = userResponse.body().getUserId();
+                    Log.e("value",userId+"");
                     getToken();
                     //    SharedPreference.getInstance(getApplicationContext()).;
                     // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
@@ -137,8 +137,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    public static int get_user_id() {
-        return user_id;
+    public static String get_user_id() {
+        return userId;
     }
 
     public void getToken(){

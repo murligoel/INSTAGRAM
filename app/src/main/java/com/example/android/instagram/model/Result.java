@@ -4,7 +4,7 @@ public class Result {
 
     private String username;
     private String password;
-    private static int userId;
+    private  String  user_id;
 
     public void setUsername(String username) {
         this.username = username;
@@ -22,11 +22,11 @@ public class Result {
         return password;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUserId() {
+        return user_id;
     }
 
     public void setUserId(int userId) {
-        this.userId = userId;
+        this.user_id = user_id;
     }
 }

@@ -5,19 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.LoginActivity"
-    android:orientation="vertical"
-    android:background="@drawable/background_gradient">
+    android:orientation="vertical">
+    <!--android:background="@drawable/background_gradient">-->
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="141dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginBottom="472dp"
-        android:src="@drawable/instagram_logo" />
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="141dp"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="0dp"-->
+        <!--android:layout_marginLeft="0dp"-->
+        <!--android:layout_marginBottom="472dp"-->
+        <!--android:src="@drawable/instagram_logo" />-->
 
     <!--<TextView-->
         <!--android:layout_width="375dp"-->

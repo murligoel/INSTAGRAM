@@ -18,15 +18,15 @@ import retrofit2.http.Path;
 public interface APIService {
 
     //sign up
-    @POST("register/")
+    @POST("api/register/")
     Call<User> createUser(@Body User user);
 
     //login
-    @POST("login/")
+    @POST("api/login/")
     Call<Result> createUser(@Body Result result);
 
     //token fetch
-    @POST("auth-jwt/")
+    @POST("auth-jwt-obtain/")
     Call<Auth> fetchToken(@Body Auth auth);
 
 
@@ -35,6 +35,6 @@ public interface APIService {
 //    Call<ResponseBody> getAuth(@Header("Authorization") String authToken);
 
     @PUT("profile/{id}")
-    Call<Profile> putPost(@Path("id") int id, @Body Profile profile, @Header("Authorization") String authToken);
+    Call<Profile> putPost(@Path("id") String id, @Body Profile profile, @Header("Authorization") String authToken);
 
 }

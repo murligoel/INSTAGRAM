@@ -4,7 +4,7 @@ public class Auth {
 
     private String username;
     private String password;
-    private static String token;
+    private  String token;
 
 
     public String getUsername() {
@@ -15,7 +15,7 @@ public class Auth {
         this.username = username;
     }
 
-    public static String getToken() {
+    public  String getToken() {
         return token;
     }
 
