@@ -1,5 +1,7 @@
 package com.example.android.instagram.model;
 
+import android.net.Uri;
+
 public class Profile {
     private String username;
     private String email;
@@ -7,7 +9,7 @@ public class Profile {
     private String last_name;
     private String bio;
     private String phone_number;
-    private String birth_date;
+    private Uri image_uri;
 
     public Profile() {
     }
@@ -63,11 +65,12 @@ public class Profile {
         this.phone_number = phone_number;
     }
 
-    public String getBirth_date() {
-        return birth_date;
+
+    public Uri getImage_uri() {
+        return image_uri;
     }
 
-    public void setBirth_date(String birth_date) {
-        this.birth_date = birth_date;
+    public void setImage_uri(Uri image_uri) {
+        this.image_uri = image_uri;
     }
 }

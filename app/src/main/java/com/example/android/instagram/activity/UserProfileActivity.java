@@ -1,5 +1,6 @@
 package com.example.android.instagram.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,19 +23,29 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import static android.view.View.GONE;
+
 public class UserProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static Context contextOfApplication;
     public static final int IMAGE_GALLERY_REQUEST  = 20;
     private Button imageFromGallery,userProfile;
     private ImageView img;
 
+    public static Context getContextOfApplication()
+    {
+        return contextOfApplication;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
+
+
         imageFromGallery = (Button) findViewById(R.id.images_from_gallery);
         userProfile = (Button) findViewById(R.id.user_profile);
+        contextOfApplication = getApplicationContext();
 //
 //        // get a reference to the image view that holds the image that the user will see.
 //        img = (ImageView) findViewById(R.id.imgPicture);
@@ -42,6 +53,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         imageFromGallery.setOnClickListener(this);
         userProfile.setOnClickListener(this);
     }
+
 
 
 //    public void openGallery(){
@@ -101,6 +113,8 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         }
 
         if(v == userProfile){
+            imageFromGallery.setVisibility(GONE);
+            userProfile.setVisibility(GONE);
             FragmentManager fm = getSupportFragmentManager();
             ProfileFragment fr = new ProfileFragment();
             fm.beginTransaction().replace(R.id.container_profile,fr).commit();
