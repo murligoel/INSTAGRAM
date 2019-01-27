@@ -28,6 +28,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,6 +44,7 @@ public class ProfileFragment extends Fragment {
     private Button buttonProfile,pickProfileImage;
     private EditText userName, email, firstName, lastName, bio, phoneNumber;
     private ImageView image;
+    Uri image_address,image_uri;
 //    private static Uri image_uri;
 
     public ProfileFragment() {
@@ -89,8 +93,11 @@ public class ProfileFragment extends Fragment {
         String pictureDirectoryPath = pictureDirectory.getPath();
 
 
+
+
         // finally, get a URI representation
         Uri data = Uri.parse(pictureDirectoryPath);
+            image_address = data;
 
         // set the data and type. Get all image types.
         photoPickerIntent.setDataAndType(data, "image/*");
@@ -108,7 +115,7 @@ public class ProfileFragment extends Fragment {
 
                 // the address of the image from sd card
                 Uri imageUri = data.getData();
-//                image_uri = imageUri;
+                image_uri = imageUri;
 
                 // declare a stream to read the image data from the SD card.
                 InputStream inputStream;
@@ -156,9 +163,17 @@ public class ProfileFragment extends Fragment {
         profile.setBio(about_bio);
         profile.setPhone_number(phone_number);
 //        profile.setImage_uri(image_uri);
+        File file = new File(image_address+ ".jpg"  );
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+        // MultipartBody.Part is used to send also the actual file name
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
 
-        Call<Profile> call = service.putPost(LoginFragment.get_user_id(),profile,"JWT " +LoginFragment.get_Token());
+
+        Call<Profile> call = service.putPost(LoginFragment.get_user_id(),profile,"JWT " +LoginFragment.get_Token(),body);
 
         call.enqueue(new Callback<Profile>() {
             @Override
