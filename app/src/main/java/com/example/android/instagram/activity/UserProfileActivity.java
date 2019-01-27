@@ -7,9 +7,15 @@ import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,9 +34,8 @@ import static android.view.View.GONE;
 public class UserProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static Context contextOfApplication;
-    public static final int IMAGE_GALLERY_REQUEST  = 20;
     private Button imageFromGallery,userProfile;
-    private ImageView img;
+    private DrawerLayout mDrawerLayout;
 
     public static Context getContextOfApplication()
     {
@@ -41,67 +46,51 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        // set item as selected to persist highlight
+                        menuItem.setChecked(true);
+                        // close drawer when item is tapped
+                        mDrawerLayout.closeDrawers();
+
+                        // Add code here to update the UI based on the item selected
+                        // For example, swap UI fragments here
+
+                        return true;
+                    }
+                });
 
 
         imageFromGallery = (Button) findViewById(R.id.images_from_gallery);
         userProfile = (Button) findViewById(R.id.user_profile);
         contextOfApplication = getApplicationContext();
-//
-//        // get a reference to the image view that holds the image that the user will see.
-//        img = (ImageView) findViewById(R.id.imgPicture);
-//
+
         imageFromGallery.setOnClickListener(this);
         userProfile.setOnClickListener(this);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
-//    public void openGallery(){
-//
-//        // invoke the image gallery using an implicit intent
-//        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-//
-//        // where do we want to find the data?
-//        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-//        String pictureDirectoryPath = pictureDirectory.getPath();
-//
-//
-//        // finally, get a URI representation
-//        Uri data = Uri.parse(pictureDirectoryPath);
-//
-//        // set the data and type. Get all image types.
-//        photoPickerIntent.setDataAndType(data, "image/*");
-//
-//        // we will invoke this activity and get something back from it
-//        startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
-//    }
-//
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-//        if(resultCode == RESULT_OK){
-//            // if we are here everything processed successfully.
-//            if(requestCode == IMAGE_GALLERY_REQUEST){
-//                // if we are here we are hearing back from the image gallery.
-//
-//                // the address of the image from sd card
-//                Uri imageUri = data.getData();
-//
-//                // declare a stream to read the image data from the SD card.
-//                InputStream inputStream;
-//
-//                // we are getting an input stream, based on the URI of the image
-//                try {
-//                    inputStream = getContentResolver().openInputStream(imageUri);
-//
-//                    // get a bitmap from the stream.
-//                    Bitmap image = BitmapFactory.decodeStream(inputStream);
-//                    img.setImageBitmap(image);
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                    Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        }
-//    }
 
     @Override
     public void onClick(View v) {
@@ -117,7 +106,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             userProfile.setVisibility(GONE);
             FragmentManager fm = getSupportFragmentManager();
             ProfileFragment fr = new ProfileFragment();
-            fm.beginTransaction().replace(R.id.container_profile,fr).commit();
+            fm.beginTransaction().replace(R.id.drawer_layout,fr).commit();
         }
     }
 }
