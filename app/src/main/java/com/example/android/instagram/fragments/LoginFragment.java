@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.android.instagram.Interface.APIService;
 import com.example.android.instagram.R;
 import com.example.android.instagram.activity.UserProfileActivity;
+import com.example.android.instagram.controller.Controller;
 import com.example.android.instagram.httpservice.HttpClientService;
 import com.example.android.instagram.model.Auth;
 import com.example.android.instagram.model.Result;
@@ -27,6 +28,7 @@ import retrofit2.Response;
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
+    private Controller controller;
     private Button buttonLogIn,activityAfterLogin;
     private EditText userName,password;
     private static String token;
@@ -65,6 +67,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
+    Result result = null;
     private void userLogIn(){
 
 //        final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -96,14 +99,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         APIService service = HttpClientService.getClient().create(APIService.class);
 
-        Result result = new Result();
+        result = new Result();
+
+        controller.setResult(result);
 
         result.setUsername(user_name);
         result.setPassword(user_password);
 
 
 
-        Call<Result> call = service.createUser(result);
+        Call<Result> call = service.createUser(controller.getResult());
 
 
 

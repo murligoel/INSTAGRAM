@@ -9,7 +9,7 @@ public class Profile {
     private String last_name;
     private String bio;
     private String phone_number;
-    private Uri image_uri;
+    private String image_uri;
 
     public Profile() {
     }
@@ -66,11 +66,11 @@ public class Profile {
     }
 
 
-    public Uri getImage_uri() {
+    public String getImage_uri() {
         return image_uri;
     }
 
-    public void setImage_uri(Uri image_uri) {
+    public void setImage_uri(String  image_uri) {
         this.image_uri = image_uri;
     }
 }

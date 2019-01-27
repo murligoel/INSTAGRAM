@@ -41,7 +41,7 @@ public class ProfileFragment extends Fragment {
     private Button buttonProfile,pickProfileImage;
     private EditText userName, email, firstName, lastName, bio, phoneNumber;
     private ImageView image;
-    private static Uri image_uri;
+//    private static Uri image_uri;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -108,7 +108,7 @@ public class ProfileFragment extends Fragment {
 
                 // the address of the image from sd card
                 Uri imageUri = data.getData();
-                image_uri = imageUri;
+//                image_uri = imageUri;
 
                 // declare a stream to read the image data from the SD card.
                 InputStream inputStream;
@@ -155,7 +155,7 @@ public class ProfileFragment extends Fragment {
         profile.setLast_name(last_name);
         profile.setBio(about_bio);
         profile.setPhone_number(phone_number);
-        profile.setImage_uri(image_uri);
+//        profile.setImage_uri(image_uri);
 
 
         Call<Profile> call = service.putPost(LoginFragment.get_user_id(),profile,"JWT " +LoginFragment.get_Token());

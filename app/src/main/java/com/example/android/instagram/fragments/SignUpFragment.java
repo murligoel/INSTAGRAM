@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.android.instagram.Interface.APIService;
 import com.example.android.instagram.R;
+import com.example.android.instagram.controller.Controller;
 import com.example.android.instagram.httpservice.HttpClientService;
 import com.example.android.instagram.model.User;
 
@@ -27,7 +28,7 @@ import retrofit2.Response;
 
 public class SignUpFragment extends Fragment implements View.OnClickListener{
 
-
+    private Controller controller;
     private Button buttonSignUp;
     private EditText userName, password, email, firstName, lastName;
 
@@ -48,10 +49,12 @@ public class SignUpFragment extends Fragment implements View.OnClickListener{
         firstName = (EditText) v.findViewById(R.id.signup_firstname);
         lastName = (EditText) v.findViewById(R.id.signup_lastname);
         buttonSignUp.setOnClickListener(this);
-
+        controller = (Controller) getActivity().getApplicationContext();
         return v;
     }
 
+
+    User user = null;
     private void userSignUp(){
 
         final ProgressDialog progressDialog = ProgressDialog.show(getActivity(),
@@ -110,15 +113,17 @@ public class SignUpFragment extends Fragment implements View.OnClickListener{
 
         APIService service = HttpClientService.getClient().create(APIService.class);
 
-        final User user = new User();
+        user = new User();
+
+        controller.setUser(user);
 
         user.setUsername(user_name);
-        user.setPassword( user_password);
-        user.setEmail(email_id);
+       user.setPassword( user_password);
+       user.setEmail(email_id);
         user.setFirst_name(first_name);
-        user.setLast_name(last_name);
+       user.setLast_name(last_name);
 
-        Call<User> call = service.createUser(user);
+        Call<User> call = service.createUser(controller.getUser());
 
 
 
