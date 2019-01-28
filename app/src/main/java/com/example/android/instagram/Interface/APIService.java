@@ -1,12 +1,14 @@
 package com.example.android.instagram.Interface;
 
 import com.example.android.instagram.model.Auth;
-import com.example.android.instagram.model.Profile;
 import com.example.android.instagram.model.User;
 import com.example.android.instagram.model.Result;
 
 
+import java.util.jar.Attributes;
+
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -26,11 +28,13 @@ public interface APIService {
     Call<User> createUser(@Body User user);
 
     //login
-    @POST("api/login/")
+//    @POST("api/login/")
+    @POST("login/")
     Call<Result> createUser(@Body Result result);
 
     //token fetch
-    @POST("auth-jwt-obtain/")
+//    @POST("auth-jwt-obtain/")
+    @POST("obtain/")
     Call<Auth> fetchToken(@Body Auth auth);
 
 
@@ -38,8 +42,10 @@ public interface APIService {
 //    //Call<ResponseBody> getAuth(@Header("Authorization") String authToken);
 //    Call<ResponseBody> getAuth(@Header("Authorization") String authToken);
 
-    @Multipart
-    @PUT("api/profile/{id}/")
-    Call<Profile> putPost(@Path("id") String id, @Body Profile profile, @Header("Authorization") String authToken, @Part MultipartBody.Part image);
 
+//    @PUT("api/profile/{id}/")
+    @Multipart
+    @PUT("profile/{id}")
+    Call<ResponseBody> putPost(@Path("id") String id, @Part("name") String userName, @Part("phone_number") String phoneNumber, @Header("Authorization") String authToken, @Part MultipartBody.Part image);
+//    Call<ResponseBody> putPost(@Path("id") String id, @Part("name") String userName, @Part("phone_number") String phoneNumber, @Header("Authorization") String authToken);
 }

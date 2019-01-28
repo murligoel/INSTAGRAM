@@ -3,11 +3,13 @@ package com.example.android.instagram.fragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +23,6 @@ import com.example.android.instagram.Interface.APIService;
 import com.example.android.instagram.R;
 import com.example.android.instagram.activity.UserProfileActivity;
 import com.example.android.instagram.httpservice.HttpClientService;
-import com.example.android.instagram.model.Profile;
 import com.example.android.instagram.model.User;
 
 import java.io.File;
@@ -31,6 +32,7 @@ import java.io.InputStream;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,11 +63,12 @@ public class ProfileFragment extends Fragment {
         image = (ImageView) v.findViewById(R.id.profile_image);
         pickProfileImage = (Button) v.findViewById(R.id.pick_profile_image_from_gallery);
 
+
         userName = (EditText) v.findViewById(R.id.profile_username);
-        email = (EditText) v.findViewById(R.id.profile_email);
-        firstName = (EditText) v.findViewById(R.id.profile_first_name);
-        lastName = (EditText) v.findViewById(R.id.profile_last_name);
-        bio = (EditText) v.findViewById(R.id.profile_bio);
+//        email = (EditText) v.findViewById(R.id.profile_email);
+//        firstName = (EditText) v.findViewById(R.id.profile_first_name);
+//        lastName = (EditText) v.findViewById(R.id.profile_last_name);
+//        bio = (EditText) v.findViewById(R.id.profile_bio);
         phoneNumber = (EditText) v.findViewById(R.id.profile_phone_number);
         buttonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +140,20 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getActivity().getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }
+
     private void updateProfile(){
         final ProgressDialog progressDialog = ProgressDialog.show(getActivity(),
                 "Updating",
@@ -145,39 +162,40 @@ public class ProfileFragment extends Fragment {
 
 
         String user_name = userName.getText().toString().trim();
-        String email_id = email.getText().toString().trim();
-        String first_name = firstName.getText().toString().trim();
-        String last_name = lastName.getText().toString().trim();
-        String about_bio = bio.getText().toString().trim();
+//        String email_id = email.getText().toString().trim();
+//        String first_name = firstName.getText().toString().trim();
+//        String last_name = lastName.getText().toString().trim();
+//        String about_bio = bio.getText().toString().trim();
         String phone_number = phoneNumber.getText().toString().trim();
-
 
         APIService service = HttpClientService.getClient().create(APIService.class);
 
-        Profile profile = new Profile();
 
-        profile.setUsername(user_name);
-        profile.setEmail(email_id);
-        profile.setFirst_name(first_name);
-        profile.setLast_name(last_name);
-        profile.setBio(about_bio);
-        profile.setPhone_number(phone_number);
+//        Profile profile = new Profile();
+//
+//        profile.setName(user_name);
+//        profile.setUsername(user_name);
+//        profile.setEmail(email_id);
+//        profile.setFirst_name(first_name);
+//        profile.setLast_name(last_name);
+//        profile.setBio(about_bio);
+//        profile.setPhone_number(phone_number);
 //        profile.setImage_uri(image_uri);
-        File file = new File(image_address+ ".jpg"  );
+        File file = new File(String.valueOf(getRealPathFromURI(image_uri)));
         RequestBody requestFile =
                 RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
         // MultipartBody.Part is used to send also the actual file name
         MultipartBody.Part body =
-                MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+                MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
 
 
 
-        Call<Profile> call = service.putPost(LoginFragment.get_user_id(),profile,"JWT " +LoginFragment.get_Token(),body);
+        Call<ResponseBody> call = service.putPost(LoginFragment.get_user_id(),user_name,phone_number,"JWT " +LoginFragment.get_Token(),body);
 
-        call.enqueue(new Callback<Profile>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<Profile> call, Response<Profile> userResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> userResponse) {
                 progressDialog.dismiss();
                 if(userResponse.isSuccessful()) {
                     Toast.makeText(getActivity(), "successful", Toast.LENGTH_LONG).show();
@@ -190,7 +208,7 @@ public class ProfileFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Profile> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(getActivity(), "error", Toast.LENGTH_LONG).show();
             }

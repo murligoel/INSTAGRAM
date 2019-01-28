@@ -86,6 +86,9 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
+
+//            case R.id.nav_profile:
+//
         }
         return super.onOptionsItemSelected(item);
     }

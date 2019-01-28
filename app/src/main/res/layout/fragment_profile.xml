@@ -46,45 +46,45 @@
         android:inputType="textEmailAddress"
         android:textColorHint="@color/white" />
 
-    <EditText
-        android:id="@+id/profile_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="394dp"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:textColorHint="@color/white" />
+    <!--<EditText-->
+        <!--android:id="@+id/profile_email"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginBottom="394dp"-->
+        <!--android:hint="Email"-->
+        <!--android:inputType="textEmailAddress"-->
+        <!--android:textColorHint="@color/white" />-->
 
-    <EditText
-        android:id="@+id/profile_first_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="327dp"
-        android:hint="First Name"
-        android:inputType="textEmailAddress"
-        android:textColorHint="@color/white" />
+    <!--<EditText-->
+        <!--android:id="@+id/profile_first_name"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginBottom="327dp"-->
+        <!--android:hint="First Name"-->
+        <!--android:inputType="textEmailAddress"-->
+        <!--android:textColorHint="@color/white" />-->
 
-    <EditText
-        android:id="@+id/profile_last_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="260dp"
-        android:hint="Last Name"
-        android:inputType="text"
-        android:textColorHint="@color/white" />
+    <!--<EditText-->
+        <!--android:id="@+id/profile_last_name"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginBottom="260dp"-->
+        <!--android:hint="Last Name"-->
+        <!--android:inputType="text"-->
+        <!--android:textColorHint="@color/white" />-->
 
-    <EditText
-        android:id="@+id/profile_bio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="184dp"
-        android:hint="Add bio"
-        android:inputType="text"
-        android:textColorHint="@color/white" />
+    <!--<EditText-->
+        <!--android:id="@+id/profile_bio"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginBottom="184dp"-->
+        <!--android:hint="Add bio"-->
+        <!--android:inputType="text"-->
+        <!--android:textColorHint="@color/white" />-->
 
     <EditText
         android:id="@+id/profile_phone_number"
@@ -93,7 +93,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="114dp"
         android:hint="Phone Number"
-        android:inputType="number"
+        android:inputType="textEmailAddress"
         android:textColorHint="@color/white" />
 
     <Button

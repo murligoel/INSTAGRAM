@@ -67,7 +67,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
-    Result result = null;
+//    Result result = null;
     private void userLogIn(){
 
 //        final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -99,16 +99,17 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         APIService service = HttpClientService.getClient().create(APIService.class);
 
-        result = new Result();
+        Result result = new Result();
 
-        controller.setResult(result);
+//        controller.setResult(result);
 
         result.setUsername(user_name);
         result.setPassword(user_password);
 
 
 
-        Call<Result> call = service.createUser(controller.getResult());
+//        Call<Result> call = service.createUser(controller.getResult());
+        Call<Result> call = service.createUser(result);
 
 
 
