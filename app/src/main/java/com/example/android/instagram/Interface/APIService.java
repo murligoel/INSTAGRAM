@@ -1,6 +1,7 @@
 package com.example.android.instagram.Interface;
 
 import com.example.android.instagram.model.Auth;
+import com.example.android.instagram.model.Profile;
 import com.example.android.instagram.model.User;
 import com.example.android.instagram.model.Result;
 
@@ -28,24 +29,20 @@ public interface APIService {
     Call<User> createUser(@Body User user);
 
     //login
-//    @POST("api/login/")
     @POST("login/")
     Call<Result> createUser(@Body Result result);
 
     //token fetch
-//    @POST("auth-jwt-obtain/")
-    @POST("obtain/")
+    @POST("auth-jwt-obtain/")
+//    @POST("obtain/")
     Call<Auth> fetchToken(@Body Auth auth);
 
 
-//    @POST("auth-jwt-verify/")
-//    //Call<ResponseBody> getAuth(@Header("Authorization") String authToken);
-//    Call<ResponseBody> getAuth(@Header("Authorization") String authToken);
-
-
-//    @PUT("api/profile/{id}/")
     @Multipart
-    @PUT("profile/{id}")
-    Call<ResponseBody> putPost(@Path("id") String id, @Part("name") String userName, @Part("phone_number") String phoneNumber, @Header("Authorization") String authToken, @Part MultipartBody.Part image);
-//    Call<ResponseBody> putPost(@Path("id") String id, @Part("name") String userName, @Part("phone_number") String phoneNumber, @Header("Authorization") String authToken);
+    @PUT("profile/{id}/")
+    Call<ResponseBody> putPost(@Path("id") String id, @Part("bio") String userName, @Part("phone_no") String phoneNumber, @Header("Authorization") String authToken, @Part MultipartBody.Part image);
+
+    @GET("profile/{id}/")
+    Call<Profile> viewProfile(@Path("id") String id, @Header("Authorization") String authToken);
+
 }

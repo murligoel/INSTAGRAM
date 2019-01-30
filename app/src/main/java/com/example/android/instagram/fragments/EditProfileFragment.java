@@ -16,19 +16,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.android.instagram.Interface.APIService;
 import com.example.android.instagram.R;
 import com.example.android.instagram.activity.UserProfileActivity;
 import com.example.android.instagram.httpservice.HttpClientService;
-import com.example.android.instagram.model.User;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -40,16 +39,16 @@ import retrofit2.Response;
 import static android.app.Activity.RESULT_OK;
 
 
-public class ProfileFragment extends Fragment {
+public class EditProfileFragment extends Fragment {
 
     public static final int IMAGE_GALLERY_REQUEST  = 20;
     private Button buttonProfile,pickProfileImage;
-    private EditText userName, email, firstName, lastName, bio, phoneNumber;
-    private ImageView image;
-    Uri image_address,image_uri;
-//    private static Uri image_uri;
+    private EditText bio, phoneNumber;
+    private CircleImageView image;
+    Uri image_uri;
 
-    public ProfileFragment() {
+
+    public EditProfileFragment() {
         // Required empty public constructor
     }
 
@@ -57,18 +56,15 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_profile, container, false);
+        View v =  inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
         buttonProfile = (Button) v.findViewById(R.id.profile_button);
-        image = (ImageView) v.findViewById(R.id.profile_image);
+        image = (CircleImageView) v.findViewById(R.id.profile_image);
         pickProfileImage = (Button) v.findViewById(R.id.pick_profile_image_from_gallery);
 
 
-        userName = (EditText) v.findViewById(R.id.profile_username);
-//        email = (EditText) v.findViewById(R.id.profile_email);
-//        firstName = (EditText) v.findViewById(R.id.profile_first_name);
-//        lastName = (EditText) v.findViewById(R.id.profile_last_name);
-//        bio = (EditText) v.findViewById(R.id.profile_bio);
+        bio = (EditText) v.findViewById(R.id.profile_username);
+
         phoneNumber = (EditText) v.findViewById(R.id.profile_phone_number);
         buttonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +96,7 @@ public class ProfileFragment extends Fragment {
 
         // finally, get a URI representation
         Uri data = Uri.parse(pictureDirectoryPath);
-            image_address = data;
+
 
         // set the data and type. Get all image types.
         photoPickerIntent.setDataAndType(data, "image/*");
@@ -161,33 +157,19 @@ public class ProfileFragment extends Fragment {
                 true);
 
 
-        String user_name = userName.getText().toString().trim();
-//        String email_id = email.getText().toString().trim();
-//        String first_name = firstName.getText().toString().trim();
-//        String last_name = lastName.getText().toString().trim();
-//        String about_bio = bio.getText().toString().trim();
+        String user_name = bio.getText().toString().trim();
         String phone_number = phoneNumber.getText().toString().trim();
 
         APIService service = HttpClientService.getClient().create(APIService.class);
 
 
-//        Profile profile = new Profile();
-//
-//        profile.setName(user_name);
-//        profile.setUsername(user_name);
-//        profile.setEmail(email_id);
-//        profile.setFirst_name(first_name);
-//        profile.setLast_name(last_name);
-//        profile.setBio(about_bio);
-//        profile.setPhone_number(phone_number);
-//        profile.setImage_uri(image_uri);
         File file = new File(String.valueOf(getRealPathFromURI(image_uri)));
         RequestBody requestFile =
                 RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
         // MultipartBody.Part is used to send also the actual file name
         MultipartBody.Part body =
-                MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
+                MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
 
 

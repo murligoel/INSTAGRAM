@@ -10,4 +10,6 @@
     <string name="constraint">CONSTRAINT</string>
     <string name="saturation">saturation</string>
     <string name="reset_password"><u>Reset Password</u></string>
+    <string name="Open">open</string>
+    <string name="Close">close</string>
 </resources>

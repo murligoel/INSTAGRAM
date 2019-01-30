@@ -3,91 +3,38 @@ package com.example.android.instagram.model;
 import android.net.Uri;
 
 public class Profile {
-    private String name;
-//    private String email;
-//    private String first_name;
-//    private String last_name;
-//    private String bio;
-    private String phone_number;
-    private String avatar;
-    private String image_uri;
+    private String bio;
+    private String phone_no;
+    private String image;
 
     public Profile() {
     }
 
 
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
 
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
-//
-//    public void setFirst_name(String first_name) {
-//        this.first_name = first_name;
-//    }
-//
-//    public void setLast_name(String last_name) {
-//        this.last_name = last_name;
-//    }
-//
-//    public String getUsername() {
-//        return username;
-//    }
-//
-//
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//
-//    public String getFirst_name() {
-//        return first_name;
-//    }
-//
-//    public String getLast_name() {
-//        return last_name;
-//    }
-//
-//    public String getBio() {
-//        return bio;
-//    }
-//
-//    public void setBio(String bio) {
-//        this.bio = bio;
-//    }
-
-    public String getPhone_number() {
-        return phone_number;
-    }
-
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
 
-//    public String getImage_uri() {
-//        return image_uri;
-//    }
-//
-//    public void setImage_uri(String  image_uri) {
-//        this.image_uri = image_uri;
-//    }
-
-    public String getAvatar() {
-        return avatar;
+    public String getImage() {
+        return image;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getName() {
-        return name;
+    public String getPhone_no() {
+        return phone_no;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPhone_no(String phone_no) {
+        this.phone_no = phone_no;
     }
+
+    public String getBio() {
+        return bio;
+    }
+
 }
