@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,14 @@ public class ViewProfileFragment extends Fragment {
         circularProfileImage = (CircleImageView) v.findViewById(R.id.profile_image);
         userProfileName = (TextView) v.findViewById(R.id.profile_bio);
         editYourProfile = (Button) v.findViewById(R.id.edit_your_profile);
+        editYourProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                EditProfileFragment fr = new EditProfileFragment();
+                fm.beginTransaction().replace(R.id.drawer_layout,fr).commit();
+            }
+        });
 
         viewProfile();
         return v;
@@ -58,9 +67,7 @@ public class ViewProfileFragment extends Fragment {
 
         APIService service = HttpClientService.getClient().create(APIService.class);
         Call<Profile> call = service.viewProfile(LoginFragment.get_user_id(),"JWT " +LoginFragment.get_Token());
-//        Profile profile = new Profile();
-//        String user_bio = profile.getBio();
-//        userProfileName.setText(user_bio);
+
         mContext = getActivity().getApplicationContext();
 
         call.enqueue(new Callback<Profile>() {
@@ -103,10 +110,5 @@ public class ViewProfileFragment extends Fragment {
 
     }
 
-//    private void viewUserProfile() {
-//        Profile profile  = new Profile();
-//        String user_profile = profile.getBio();
-//        userProfileName.setText(user_profile);
-//    }
 
 }

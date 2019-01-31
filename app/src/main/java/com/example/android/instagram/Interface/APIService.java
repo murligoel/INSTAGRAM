@@ -45,4 +45,8 @@ public interface APIService {
     @GET("profile/{id}/")
     Call<Profile> viewProfile(@Path("id") String id, @Header("Authorization") String authToken);
 
+    @Multipart
+    @POST("post/")
+    Call<ResponseBody> createPost(@Header("Authorization") String authToken, @Part MultipartBody.Part picture);
+
 }

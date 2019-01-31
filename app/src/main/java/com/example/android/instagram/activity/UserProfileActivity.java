@@ -58,7 +58,6 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                                 imageFromGallery.setVisibility(GONE);
                                 userProfile.setVisibility(GONE);
                                 FragmentManager fm = getSupportFragmentManager();
-//                                EditProfileFragment fr = new EditProfileFragment();
                                ViewProfileFragment fr = new ViewProfileFragment();
                                 fm.beginTransaction().replace(R.id.drawer_layout,fr).commit();
                                 mDrawerLayout.closeDrawers();

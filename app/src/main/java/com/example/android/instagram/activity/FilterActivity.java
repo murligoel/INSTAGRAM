@@ -2,10 +2,13 @@ package com.example.android.instagram.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -25,12 +28,15 @@ import android.support.v7.widget.Toolbar;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.example.android.instagram.Interface.APIService;
 import com.example.android.instagram.Interface.EditImageFragmentListener;
 import com.example.android.instagram.Interface.FiltersListFragmentListener;
 import com.example.android.instagram.R;
 import com.example.android.instagram.Utils.BitmapUtils;
 import com.example.android.instagram.fragments.EditImageFragment;
 import com.example.android.instagram.fragments.FilterListFragment;
+import com.example.android.instagram.fragments.LoginFragment;
+import com.example.android.instagram.httpservice.HttpClientService;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -41,9 +47,18 @@ import com.zomato.photofilters.imageprocessors.subfilters.BrightnessSubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.ContrastSubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.SaturationSubfilter;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FilterActivity extends AppCompatActivity implements FiltersListFragmentListener,EditImageFragmentListener {
 
@@ -51,6 +66,7 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
     public static final int PERMISSION_PICK_IMAGE = 1000;
     public static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
+    Uri image_uri;
 
     ImageView img_preview;
     TabLayout tabLAyout;
@@ -199,7 +215,8 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
         }
 
         if(id == R.id.action_save){
-            saveImageToGallery();
+//            saveImageToGallery();
+            postImage();
             return true;
         }
 
@@ -210,18 +227,65 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
         return super.onOptionsItemSelected(item);
     }
 
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }
+
+    private void postImage() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading Post....");
+        progressDialog.show();
+
+        APIService service = HttpClientService.getClient().create(APIService.class);
+
+
+        File file = new File(String.valueOf(getRealPathFromURI(image_uri)));
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+        // MultipartBody.Part is used to send also the actual file name
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
+
+        Call<ResponseBody> call = service.createPost("JWT " +LoginFragment.get_Token(),body);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> userResponse) {
+                progressDialog.dismiss();
+                if(userResponse.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "successful", Toast.LENGTH_LONG).show();
+                    // SharedPreference.getInstance(getApplicationContext()).userLogin(user);
+                    // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "error1", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     private void openCamera() {
 
             Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(cameraIntent, CAMERA_REQUEST);
     }
-
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == CAMERA_REQUEST && resultCode == FilterActivity.RESULT_OK) {
-//            Bitmap photo = (Bitmap) data.getExtras().get("data");
-//            imageView.setImageBitmap(photo);
-//        }
-//    }
 
 
 
@@ -312,7 +376,9 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(resultCode == RESULT_OK  && requestCode == PERMISSION_PICK_IMAGE)
         {
-            Bitmap bitmap = BitmapUtils.getBitmapFromGallery(this,data.getData(),100,100);
+            Uri imageUri = data.getData();
+            Bitmap bitmap = BitmapUtils.getBitmapFromGallery(this,imageUri,100,100);
+            image_uri = imageUri;
 
             // clear bitmap memory
             originalBitmap.recycle();
