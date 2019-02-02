@@ -172,8 +172,9 @@ public class EditProfileFragment extends Fragment {
                 MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
 
-
-        Call<ResponseBody> call = service.putPost(LoginFragment.get_user_id(),user_name,phone_number,"JWT " +LoginFragment.get_Token(),body);
+        RequestBody name =RequestBody.create(MediaType.parse("text/plain"),user_name);
+        RequestBody phone = RequestBody.create(MediaType.parse("text/plain"),phone_number);
+        Call<ResponseBody> call = service.putPost(LoginFragment.get_user_id(),name,phone,"JWT " +LoginFragment.get_Token(),body);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override

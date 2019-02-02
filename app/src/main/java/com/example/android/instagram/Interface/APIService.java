@@ -1,5 +1,6 @@
 package com.example.android.instagram.Interface;
 
+import com.example.android.instagram.fragments.SignUpFragment;
 import com.example.android.instagram.model.Auth;
 import com.example.android.instagram.model.Post;
 import com.example.android.instagram.model.PostList;
@@ -37,20 +38,19 @@ public interface APIService {
 
     //token fetch
     @POST("auth-jwt-obtain/")
-//    @POST("obtain/")
     Call<Auth> fetchToken(@Body Auth auth);
 
 
     @Multipart
     @PUT("profile/{id}/")
-    Call<ResponseBody> putPost(@Path("id") String id, @Part("bio") String userName, @Part("phone_no") String phoneNumber, @Header("Authorization") String authToken, @Part MultipartBody.Part image);
+    Call<ResponseBody> putPost(@Path("id") String id, @Part("bio") RequestBody userName, @Part("phone_no") RequestBody phoneNumber, @Header("Authorization") String authToken, @Part MultipartBody.Part image);
 
     @GET("profile/{id}/")
     Call<Profile> viewProfile(@Path("id") String id, @Header("Authorization") String authToken);
 
     @Multipart
     @POST("post/")
-    Call<ResponseBody> createPost(@Header("Authorization") String authToken, @Part MultipartBody.Part picture);
+    Call<ResponseBody> createPost(@Header("Authorization") String authToken, @Part("caption") RequestBody captionForPost, @Part MultipartBody.Part picture);
 
     @GET("post/")
     Call<ArrayList<Post>> viewPost(@Header("Authorization") String authToken);

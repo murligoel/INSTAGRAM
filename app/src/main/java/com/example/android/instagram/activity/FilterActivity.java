@@ -215,8 +215,7 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
         }
 
         if(id == R.id.action_save){
-//            saveImageToGallery();
-            postImage();
+            saveImageToGallery();
             return true;
         }
 
@@ -241,45 +240,6 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
         return result;
     }
 
-    private void postImage() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Uploading Post....");
-        progressDialog.show();
-
-        APIService service = HttpClientService.getClient().create(APIService.class);
-
-
-        File file = new File(String.valueOf(getRealPathFromURI(image_uri)));
-        RequestBody requestFile =
-                RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
-        // MultipartBody.Part is used to send also the actual file name
-        MultipartBody.Part body =
-                MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
-
-        Call<ResponseBody> call = service.createPost("JWT " +LoginFragment.get_Token(),body);
-
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> userResponse) {
-                progressDialog.dismiss();
-                if(userResponse.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "successful", Toast.LENGTH_LONG).show();
-                    // SharedPreference.getInstance(getApplicationContext()).userLogin(user);
-                    // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "error1", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
 
     private void openCamera() {
 

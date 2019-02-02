@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.android.instagram.Interface.APIService;
 import com.example.android.instagram.R;
+import com.example.android.instagram.activity.FrontPageActivity;
 import com.example.android.instagram.activity.UserProfileActivity;
 import com.example.android.instagram.controller.Controller;
 import com.example.android.instagram.httpservice.HttpClientService;
@@ -29,7 +30,7 @@ import retrofit2.Response;
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private Controller controller;
-    private Button buttonLogIn,activityAfterLogin;
+    private Button buttonLogIn,activityAfterLogin,signupIntent;
     private EditText userName,password;
     private static String token;
     private  static String userId;
@@ -52,6 +53,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         userName = (EditText) v.findViewById(R.id.login_username);
         password = (EditText) v.findViewById(R.id.login_password);
+        signupIntent = (Button) v.findViewById(R.id.signup_intent);
         buttonLogIn.setOnClickListener(this);
 //        activityAfterLogin.setOnClickListener(this);
 
@@ -61,6 +63,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
                 startActivity(intent);
                 return false;
+            }
+        });
+        signupIntent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), FrontPageActivity.class);
+                startActivity(i);
             }
         });
 

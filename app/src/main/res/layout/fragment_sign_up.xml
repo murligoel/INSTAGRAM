@@ -6,22 +6,124 @@
     android:layout_height="match_parent"
     tools:context=".activity.SignUpActivity"
     android:orientation="vertical"
-    android:id="@+id/container1">
-    <!--android:background="@drawable/background_gradient"-->
+    android:id="@+id/container1"
+    android:background="@drawable/background">
+
 
     <!--<ImageView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="120dp"-->
+        <!--android:layout_width="355dp"-->
+        <!--android:layout_height="99dp"-->
         <!--android:layout_alignParentStart="true"-->
         <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
         <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_marginStart="0dp"-->
-        <!--android:layout_marginLeft="0dp"-->
-        <!--android:layout_marginBottom="493dp"-->
+        <!--android:layout_marginStart="27dp"-->
+        <!--android:layout_marginLeft="27dp"-->
+        <!--android:layout_marginEnd="29dp"-->
+        <!--android:layout_marginRight="29dp"-->
+        <!--android:layout_marginBottom="565dp"-->
         <!--android:src="@drawable/instagram_logo" />-->
 
 
-    <!--<TextView-->
+    <!--<EditText-->
+        <!--android:id="@+id/signup_username"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="61dp"-->
+        <!--android:layout_marginTop="18dp"-->
+        <!--android:layout_marginEnd="46dp"-->
+        <!--android:layout_marginRight="44dp"-->
+        <!--android:layout_marginBottom="480dp"-->
+        <!--android:background="@drawable/testing_gradient"-->
+        <!--android:hint="Username"-->
+        <!--android:inputType="textEmailAddress"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColorHint="@color/black" />-->
+
+
+    <!--<EditText-->
+        <!--android:id="@+id/signup_password"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="61dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginEnd="46dp"-->
+        <!--android:layout_marginRight="46dp"-->
+        <!--android:layout_marginBottom="428dp"-->
+        <!--android:background="@drawable/testing_gradient"-->
+        <!--android:hint="Password"-->
+        <!--android:inputType="textPassword"-->
+        <!--android:textColorHint="@color/black"-->
+        <!--android:textAlignment="center"/>-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/signup_email"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="61dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginEnd="46dp"-->
+        <!--android:layout_marginRight="46dp"-->
+        <!--android:layout_marginBottom="372dp"-->
+        <!--android:background="@drawable/testing_gradient"-->
+        <!--android:hint="Email"-->
+        <!--android:inputType="textEmailAddress"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColorHint="@color/black" />-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/signup_firstname"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="61dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginEnd="46dp"-->
+        <!--android:layout_marginRight="45dp"-->
+        <!--android:layout_marginBottom="317dp"-->
+        <!--android:background="@drawable/testing_gradient"-->
+        <!--android:hint="First Name"-->
+        <!--android:inputType="textEmailAddress"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColorHint="@color/black" />-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/signup_lastname"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="61dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginEnd="46dp"-->
+        <!--android:layout_marginRight="46dp"-->
+        <!--android:layout_marginBottom="257dp"-->
+        <!--android:background="@drawable/testing_gradient"-->
+        <!--android:hint="Last Name"-->
+        <!--android:inputType="textEmailAddress"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColorHint="@color/black" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/signup_button"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:layout_alignParentStart="true"-->
@@ -29,116 +131,55 @@
         <!--android:layout_alignParentEnd="true"-->
         <!--android:layout_alignParentRight="true"-->
         <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_marginStart="18dp"-->
-        <!--android:layout_marginLeft="18dp"-->
-        <!--android:layout_marginTop="39dp"-->
-        <!--android:layout_marginEnd="17dp"-->
-        <!--android:layout_marginRight="17dp"-->
-        <!--android:layout_marginBottom="445dp"-->
-        <!--android:background="@drawable/heading_gradient"-->
+        <!--android:layout_marginStart="135dp"-->
+        <!--android:layout_marginLeft="132dp"-->
+        <!--android:layout_marginEnd="132dp"-->
+        <!--android:layout_marginRight="132dp"-->
+        <!--android:layout_marginBottom="189dp"-->
+        <!--android:elevation="50dp"-->
         <!--android:text="SIGN UP"-->
-        <!--android:textAlignment="center"-->
         <!--android:textColor="@color/black"-->
-        <!--android:textSize="30dp" />-->
+        <!--android:textSize="20dp"-->
+        <!--android:textStyle="bold" />-->
 
-    <EditText
-        android:id="@+id/signup_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="400dp"
-        android:hint="Username"
-        android:inputType="textEmailAddress"
-        android:textColorHint="@color/white" />
-
-
-    <EditText
-        android:id="@+id/signup_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="332dp"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:textColorHint="@color/white" />
-
-    <EditText
-        android:id="@+id/signup_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="259dp"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:textColorHint="@color/white" />
-
-    <EditText
-        android:id="@+id/signup_firstname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="188dp"
-        android:hint="First Name"
-        android:inputType="textEmailAddress"
-        android:textColorHint="@color/white" />
-
-    <EditText
-        android:id="@+id/signup_lastname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="120dp"
-        android:hint="Last Name"
-        android:inputType="textEmailAddress"
-        android:textColorHint="@color/white" />
-
-    <Button
-        android:id="@+id/signup_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="135dp"
-        android:layout_marginLeft="135dp"
-        android:layout_marginEnd="132dp"
-        android:layout_marginRight="132dp"
-        android:layout_marginBottom="46dp"
-        android:background="@drawable/button_gradient"
-        android:elevation="50dp"
-        android:text="SIGN UP"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+    <!--<TextView-->
+        <!--android:layout_width="169dp"-->
+        <!--android:layout_height="38dp"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="128dp"-->
+        <!--android:layout_marginLeft="128dp"-->
+        <!--android:layout_marginEnd="114dp"-->
+        <!--android:layout_marginRight="114dp"-->
+        <!--android:layout_marginBottom="123dp"-->
+        <!--android:text="Have an account?"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="19dp" />-->
 
     <!--<Button-->
-        <!--android:id="@+id/go_to_login"-->
-        <!--android:layout_width="match_parent"-->
+        <!--android:id="@+id/login_intent"-->
+        <!--android:layout_width="168dp"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
         <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_marginStart="0dp"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:layout_marginBottom="7dp"-->
-        <!--android:text="LogIn"-->
-        <!--android:textAlignment="center"-->
-        <!--android:textSize="20dp" />-->
+        <!--android:layout_marginStart="135dp"-->
+        <!--android:layout_marginLeft="135dp"-->
+        <!--android:layout_marginEnd="132dp"-->
+        <!--android:layout_marginRight="132dp"-->
+        <!--android:layout_marginBottom="79dp"-->
+        <!--android:elevation="50dp"-->
+        <!--android:text="Log in"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="20dp"-->
+        <!--android:textStyle="bold" />-->
+
+
 
 </RelativeLayout>

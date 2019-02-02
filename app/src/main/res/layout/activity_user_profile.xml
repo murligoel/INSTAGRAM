@@ -21,9 +21,47 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/post_getting_from_gallery"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:src="@drawable/ic_launcher_background"/>
+
+            <EditText
+                android:id="@+id/caption_for_post"
+                android:layout_width="225dp"
+                android:layout_marginTop="30dp"
+                android:layout_height="60dp"
+                android:text="Caption"
+                android:textSize="20dp"
+                android:textAlignment="gravity"/>
+
+            <Button
+                android:id="@+id/opening_gallery_for_post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Gallery"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/post_on_click"
+            android:text="POst"/>
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -39,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="600dp"
-            android:text="Profile" />
+            android:text="Filter" />
 
     </LinearLayout>
 
