@@ -1,11 +1,14 @@
 package com.example.android.instagram.Interface;
 
 import com.example.android.instagram.model.Auth;
+import com.example.android.instagram.model.Post;
+import com.example.android.instagram.model.PostList;
 import com.example.android.instagram.model.Profile;
 import com.example.android.instagram.model.User;
 import com.example.android.instagram.model.Result;
 
 
+import java.util.ArrayList;
 import java.util.jar.Attributes;
 
 import okhttp3.MultipartBody;
@@ -25,7 +28,7 @@ import retrofit2.http.Path;
 public interface APIService {
 
     //sign up
-    @POST("api/register/")
+    @POST("register/")
     Call<User> createUser(@Body User user);
 
     //login
@@ -48,5 +51,9 @@ public interface APIService {
     @Multipart
     @POST("post/")
     Call<ResponseBody> createPost(@Header("Authorization") String authToken, @Part MultipartBody.Part picture);
+
+    @GET("post/")
+    Call<ArrayList<Post>> viewPost(@Header("Authorization") String authToken);
+
 
 }

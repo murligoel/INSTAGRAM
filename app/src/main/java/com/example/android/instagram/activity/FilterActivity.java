@@ -394,8 +394,10 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
             filterListFragment.displayThumbnail(originalBitmap);
 
         }else if(requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
 
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            Uri imageUri = data.getData();
+            image_uri= imageUri;
             originalBitmap.recycle();
             finalBitmap.recycle();
             filteredBitmap.recycle();
