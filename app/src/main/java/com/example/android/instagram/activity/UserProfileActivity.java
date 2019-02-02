@@ -129,6 +129,9 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                                 fm.beginTransaction().replace(R.id.drawer_layout,fr).commit();
                                 mDrawerLayout.closeDrawers();
                                 return true;
+                            case R.id.log_out:
+                                userLogOut();
+                                return true;
                         }
 
                         return true;
@@ -141,6 +144,39 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
         imageFromGallery.setOnClickListener(this);
        create_Post();
+    }
+
+    private void userLogOut() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Logging Out....");
+        progressDialog.show();
+
+        APIService service = HttpClientService.getClient().create(APIService.class);
+
+        Call<ResponseBody> call = service.logOut("JWT " +LoginFragment.get_Token());
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> userResponse) {
+                progressDialog.dismiss();
+                if(userResponse.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_LONG).show();
+                    // SharedPreference.getInstance(getApplicationContext()).userLogin(user);
+                    // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    Intent intent = new Intent(UserProfileActivity.this, FrontPageActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "error1", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private String getRealPathFromURI(Uri contentURI) {

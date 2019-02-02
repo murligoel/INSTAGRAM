@@ -55,5 +55,8 @@ public interface APIService {
     @GET("post/")
     Call<ArrayList<Post>> viewPost(@Header("Authorization") String authToken);
 
+    @GET("logout/")
+    Call<ResponseBody> logOut(@Header("Authorzation") String authtoken);
+
 
 }
