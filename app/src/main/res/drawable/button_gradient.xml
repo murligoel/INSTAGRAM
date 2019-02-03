@@ -3,14 +3,15 @@
 
     <gradient
         android:angle="180"
-        android:endColor="#35C8CB"
-        android:startColor="#7B2DD6"
+        android:centerColor="#F47100"
+        android:startColor="#F47100"
+        android:endColor="#F47100"
         android:type="linear" />
 
     <corners
-        android:bottomLeftRadius="15dp"
-        android:bottomRightRadius="15dp"
-        android:topLeftRadius="15dp"
-        android:topRightRadius="15dp"/>
+        android:bottomLeftRadius="4pt"
+        android:bottomRightRadius="4pt"
+        android:topLeftRadius="4pt"
+        android:topRightRadius="4pt"/>
 
 </shape>

@@ -80,9 +80,9 @@
         android:layout_marginBottom="239dp"
         android:elevation="50dp"
         android:text="Sign in"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20dp"
-        android:textStyle="bold" />
+        android:background="@drawable/button_gradient"/>
 
 
     <TextView
@@ -101,7 +101,7 @@
         android:layout_marginBottom="169dp"
         android:text="@string/reset_password"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="20dp" />
 
     <TextView
@@ -120,7 +120,7 @@
         android:layout_marginBottom="125dp"
         android:text="Don't have an account?"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="20dp" />
 
     <Button
@@ -139,9 +139,9 @@
         android:layout_marginBottom="64dp"
         android:elevation="50dp"
         android:text="Sign up"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20dp"
-        android:textStyle="bold" />
+        android:background="@drawable/button_gradient_blue"/>
 
 
 </RelativeLayout>

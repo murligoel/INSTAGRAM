@@ -2,6 +2,7 @@ package com.example.android.instagram.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.android.instagram.Interface.APIService;
 import com.example.android.instagram.R;
+import com.example.android.instagram.activity.EditProfileActivity;
 import com.example.android.instagram.httpservice.HttpClientService;
 import com.example.android.instagram.model.Profile;
 import com.squareup.picasso.Picasso;
@@ -48,9 +50,11 @@ public class ViewProfileFragment extends Fragment {
         editYourProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                EditProfileFragment fr = new EditProfileFragment();
-                fm.beginTransaction().replace(R.id.drawer_layout,fr).commit();
+//                FragmentManager fm = getActivity().getSupportFragmentManager();
+//                EditProfileFragment fr = new EditProfileFragment();
+//                fm.beginTransaction().replace(R.id.drawer_layout,fr).commit();
+                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -104,11 +108,19 @@ public class ViewProfileFragment extends Fragment {
             }
         });
 
-
-
-
-
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+////        startActivity(new Intent(EditProfileActivity.this, ViewProfileFragment.class));
+////        FragmentManager fm = getSupportFragmentManager();
+////        ViewProfileFragment fr = new ViewProfileFragment();
+////        fm.beginTransaction().replace(R.id.container_edit_profile,fr).commit();
+//        finish();
+//    }
+
+
 
 
 }

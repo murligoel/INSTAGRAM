@@ -97,7 +97,13 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Instagram Filter");
+        getSupportActionBar().setTitle("Filter");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         //view
 
@@ -400,5 +406,14 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(FilterActivity.this,UserProfileActivity.class));
+        finish();
+
     }
 }

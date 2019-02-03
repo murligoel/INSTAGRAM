@@ -4,20 +4,22 @@
     package="com.example.android.instagram">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature android:name="android.hardware.camera" />
 
     <application
-        android:name="com.example.android.instagram.controller.Controller"
+        android:name=".controller.Controller"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:screenOrientation="portrait"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".activity.EditProfileActivity"></activity>
         <activity android:name=".activity.FrontPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,9 +28,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.UserProfileActivity" />
-        <activity android:name=".activity.FilterActivity"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen"/>
-
+        <activity
+            android:name=".activity.FilterActivity"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
     </application>
 
 </manifest>

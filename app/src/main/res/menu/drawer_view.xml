@@ -4,10 +4,12 @@
 
         <item
             android:id="@+id/nav_profile"
-            android:title="Profile" />
+            android:icon="@drawable/ic_person_black"
+            android:title="PROFILE" />
             <!--android:icon="@drawable/ic_menu_camera"-->
         <item
             android:id="@+id/log_out"
+            android:icon="@drawable/ic_subdirectory_arrow_right"
             android:title="LOG OUT" />
 
 

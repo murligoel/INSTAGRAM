@@ -28,4 +28,8 @@
         <item name="android:textSize">17sp</item>
     </style>
 
+    <style name="MenuItems" parent="AppTheme">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

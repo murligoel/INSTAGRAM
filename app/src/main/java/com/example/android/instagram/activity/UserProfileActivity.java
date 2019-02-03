@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -58,7 +59,8 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
     public static final int IMAGE_GALLERY_REQUEST  = 20;
     public static Context contextOfApplication;
-    private Button imageFromGallery,openGallery,postOnClick;
+    private Button openGallery,postOnClick;
+    private FloatingActionButton imageFromGallery;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private ArrayList<Post> mPost = new ArrayList<>() ;
@@ -69,6 +71,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private EditText caption;
     private CircleImageView postImage;
     Uri image_uri;
+    int count = 0;
 
 
     public static Context getContextOfApplication()
@@ -123,7 +126,9 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
                         switch (id){
                             case R.id.nav_profile:
-                                imageFromGallery.setVisibility(GONE);
+//                                imageFromGallery.setVisibility(GONE);
+                                openGallery.setVisibility(GONE);
+                                postOnClick.setVisibility(GONE);
                                 FragmentManager fm = getSupportFragmentManager();
                                 ViewProfileFragment fr = new ViewProfileFragment();
                                 fm.beginTransaction().replace(R.id.drawer_layout,fr).commit();
@@ -139,11 +144,14 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 });
 
 
-        imageFromGallery = (Button) findViewById(R.id.images_from_gallery);
+        imageFromGallery = (FloatingActionButton) findViewById(R.id.images_from_gallery);
         contextOfApplication = getApplicationContext();
 
         imageFromGallery.setOnClickListener(this);
-       create_Post();
+        if( count == 0){
+            create_Post();
+            count++;
+        }
     }
 
     private void userLogOut() {
@@ -203,39 +211,44 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
         APIService service = HttpClientService.getClient().create(APIService.class);
 
+        if(image_uri != null) {
+            File file = new File(String.valueOf(getRealPathFromURI(image_uri)));
+            RequestBody requestFile =
+                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
-        File file = new File(String.valueOf(getRealPathFromURI(image_uri)));
-        RequestBody requestFile =
-                RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            // MultipartBody.Part is used to send also the actual file name
+            MultipartBody.Part body =
+                    MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
 
-        // MultipartBody.Part is used to send also the actual file name
-        MultipartBody.Part body =
-                MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
+            RequestBody caption_post = RequestBody.create(MediaType.parse("text/plain"), post_caption);
 
-        RequestBody caption_post = RequestBody.create(MediaType.parse("text/plain"),post_caption);
+            Call<ResponseBody> call = service.createPost("JWT " + LoginFragment.get_Token(), caption_post, body);
 
-        Call<ResponseBody> call = service.createPost("JWT " +LoginFragment.get_Token(),caption_post,body);
-
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> userResponse) {
-                progressDialog.dismiss();
-                if(userResponse.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "successful", Toast.LENGTH_LONG).show();
-                    // SharedPreference.getInstance(getApplicationContext()).userLogin(user);
-                    // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> userResponse) {
+                    progressDialog.dismiss();
+                    if (userResponse.isSuccessful()) {
+                        Toast.makeText(getApplicationContext(), "successful", Toast.LENGTH_LONG).show();
+                        create_Post();
+                        // SharedPreference.getInstance(getApplicationContext()).userLogin(user);
+                        // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    } else {
+                        Toast.makeText(getApplicationContext(), "error1", Toast.LENGTH_LONG).show();
+                    }
                 }
-                else{
-                    Toast.makeText(getApplicationContext(), "error1", Toast.LENGTH_LONG).show();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    progressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        else {
+            progressDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "image required", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void gallery(){
@@ -312,20 +325,6 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
                     String[] posts = new String[mPost.size()];
 
-
-                   /* for(int i = 0 ; i < mPost.size() ; i++ ){
-                        String text_caption = mPost.get(i).getCaption();
-                        String text_date = mPost.get(i).getDate_created();
-                        String image_url = mPost.get(i).getPicture();
-                        mPost.add(new Post(text_caption,image_url,text_date));
-                    }*/
-
-
-//                    PostList postList = response.body();
-//                    JSONResponse jsonResponse = response.body();
-//                    data = new ArrayList<>(Arrays.asList(jsonResponse.getAndroid()));
-//                    mPost = new ArrayList<>(Arrays.asList(postList.getPost()));
-//                    mPost = response.body().getPost();
                     eAdapter = new PostAdapter(mPost);
                     recyclerView.setAdapter(eAdapter);
 
