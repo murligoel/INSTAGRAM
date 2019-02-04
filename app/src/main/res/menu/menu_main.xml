@@ -16,7 +16,7 @@
         android:orderInCategory="102"
         app:showAsAction="always"
         android:enabled="true"
-        android:title="SAVE" />
+        android:title="POST" />
 
     <item
         android:id="@+id/action_camera"

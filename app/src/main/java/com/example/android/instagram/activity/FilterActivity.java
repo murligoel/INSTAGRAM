@@ -3,6 +3,7 @@ package com.example.android.instagram.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -47,6 +48,7 @@ import com.zomato.photofilters.imageprocessors.subfilters.BrightnessSubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.ContrastSubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.SaturationSubfilter;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -81,6 +83,8 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
     int brightnessFinal = 0;
     float saturationFinal = 1.0f;
     float constrantFinal = 1.0f;
+
+    private boolean clickable = true;
 
     // load native image filters library
 
@@ -221,7 +225,12 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
         }
 
         if(id == R.id.action_save){
-            saveImageToGallery();
+//            saveImageToGallery();
+            if(clickable) {
+                clickable = false;
+                post();
+            }
+//            startActivity(new Intent(FilterActivity.this,PostActivity.class));
             return true;
         }
 
@@ -244,6 +253,57 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
             cursor.close();
         }
         return result;
+    }
+
+    private void post() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading Post....");
+        progressDialog.show();
+
+//        String post_caption = caption.getText().toString().trim();
+
+
+        APIService service = HttpClientService.getClient().create(APIService.class);
+
+        if(image_uri != null) {
+            File file = new File(String.valueOf(getRealPathFromURI(image_uri)));
+            RequestBody requestFile =
+                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+            // MultipartBody.Part is used to send also the actual file name
+            MultipartBody.Part body =
+                    MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
+
+//            RequestBody caption_post = RequestBody.create(MediaType.parse("text/plain"));
+
+            Call<ResponseBody> call = service.createPost1("JWT " + LoginFragment.get_Token(),  body);
+
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> userResponse) {
+                    progressDialog.dismiss();
+                    if (userResponse.isSuccessful()) {
+                        Toast.makeText(getApplicationContext(), "successful", Toast.LENGTH_LONG).show();
+//                        create_Post();
+                        // SharedPreference.getInstance(getApplicationContext()).userLogin(user);
+                        // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        startActivity(new Intent(FilterActivity.this,UserProfileActivity.class));
+                    } else {
+                        Toast.makeText(getApplicationContext(), "error1", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    progressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        else {
+            progressDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "image required", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -345,6 +405,7 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
             Uri imageUri = data.getData();
             Bitmap bitmap = BitmapUtils.getBitmapFromGallery(this,imageUri,100,100);
             image_uri = imageUri;
+            clickable = true;
 
             // clear bitmap memory
             originalBitmap.recycle();
@@ -362,22 +423,38 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
         }else if(requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
 
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            Uri imageUri = data.getData();
-            image_uri= imageUri;
+
             originalBitmap.recycle();
             finalBitmap.recycle();
             filteredBitmap.recycle();
+            Uri tempUri = getImageUri(getApplicationContext(), photo);
+            image_uri = tempUri;
+            clickable = true;
+
 
             originalBitmap = photo.copy(Bitmap.Config.ARGB_8888,true);
             finalBitmap = originalBitmap.copy(Bitmap.Config.ARGB_8888,true);
             filteredBitmap = originalBitmap.copy(Bitmap.Config.ARGB_8888,true);
             img_preview.setImageBitmap(originalBitmap);
+//            img_preview.buildDrawingCache();
+//            Bitmap bitmap = img_preview.getDrawingCache();
+//
+//            Intent intent = new Intent(this, PostActivity.class);
+//            intent.putExtra("BitmapImage", bitmap);
+//            startActivity(intent);
+
 
             filterListFragment.displayThumbnail(originalBitmap);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

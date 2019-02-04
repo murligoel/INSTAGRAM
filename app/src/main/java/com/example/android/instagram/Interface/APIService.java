@@ -52,6 +52,10 @@ public interface APIService {
     @POST("post/")
     Call<ResponseBody> createPost(@Header("Authorization") String authToken, @Part("caption") RequestBody captionForPost, @Part MultipartBody.Part picture);
 
+    @Multipart
+    @POST("post/")
+    Call<ResponseBody> createPost1(@Header("Authorization") String authToken,  @Part MultipartBody.Part picture);
+
     @GET("post/")
     Call<ArrayList<Post>> viewPost(@Header("Authorization") String authToken);
 

@@ -36,9 +36,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
         String imageUrl = currentPost.getPicture();
         final String dateView = currentPost.getDate_created();
         final String caption = currentPost.getCaption();
+        final String userName = currentPost.getName();
 
         holder.dateText.setText(dateView);
         holder.captionText.setText(caption);
+        holder.nameText.setText(userName);
         Picasso.with(mContext)
                 .load(imageUrl)
                 .fit()
@@ -55,7 +57,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
         public TextView dateText;
-        public TextView captionText;
+        public TextView captionText,nameText;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +65,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
             imageView = itemView.findViewById(R.id.image_view);
             dateText = itemView.findViewById(R.id.date_view);
             captionText = itemView.findViewById(R.id.caption_view);
+            nameText = itemView.findViewById(R.id.name_view);
         }
     }
 }

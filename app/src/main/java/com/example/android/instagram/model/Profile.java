@@ -6,6 +6,7 @@ public class Profile {
     private String bio;
     private String phone_no;
     private String image;
+    private String name;
 
     public Profile() {
     }
@@ -37,4 +38,11 @@ public class Profile {
         return bio;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,6 +59,19 @@ public class EditProfileActivity extends AppCompatActivity {
         buttonProfile = (Button) findViewById(R.id.profile_button);
         image = (CircleImageView) findViewById(R.id.profile_image);
         pickProfileImage = (Button) findViewById(R.id.pick_profile_image_from_gallery);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_edit_profile);
+        //to set the action bar
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Edit Profile");
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Implemented by activity
+                onBackPressed();
+            }
+        });
 
 
         bio = (EditText) findViewById(R.id.profile_username);
@@ -239,6 +253,7 @@ public class EditProfileActivity extends AppCompatActivity {
 //                    FragmentManager fm = getSupportFragmentManager();
 //                    ViewProfileFragment fr = new ViewProfileFragment();
 //                    fm.beginTransaction().replace(R.id.container_edit_profile,fr).commit();
+                        startActivity(new Intent(EditProfileActivity.this,ViewProfileActivity.class));
                     } else {
                         Toast.makeText(getApplicationContext(), "error1", Toast.LENGTH_LONG).show();
                     }
@@ -286,7 +301,7 @@ public class EditProfileActivity extends AppCompatActivity {
     public void onBackPressed()
     {
         super.onBackPressed();
-        startActivity(new Intent(EditProfileActivity.this,UserProfileActivity.class));
+        startActivity(new Intent(EditProfileActivity.this,ViewProfileActivity.class));
         finish();
 
     }

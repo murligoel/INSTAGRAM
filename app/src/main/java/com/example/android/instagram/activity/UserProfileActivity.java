@@ -71,7 +71,8 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private EditText caption;
     private CircleImageView postImage;
     Uri image_uri;
-    int count = 0;
+    private int count = 0;
+    private boolean clickable = true;
 
 
     public static Context getContextOfApplication()
@@ -113,7 +114,10 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         postOnClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                post();
+                if(clickable) {
+                    clickable = false;
+                    post();
+                }
             }
         });
 
@@ -127,12 +131,13 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                         switch (id){
                             case R.id.nav_profile:
 //                                imageFromGallery.setVisibility(GONE);
-                                openGallery.setVisibility(GONE);
-                                postOnClick.setVisibility(GONE);
-                                FragmentManager fm = getSupportFragmentManager();
-                                ViewProfileFragment fr = new ViewProfileFragment();
-                                fm.beginTransaction().replace(R.id.drawer_layout,fr).commit();
-                                mDrawerLayout.closeDrawers();
+//                                openGallery.setVisibility(GONE);
+//                                postOnClick.setVisibility(GONE);
+//                                FragmentManager fm = getSupportFragmentManager();
+//                                ViewProfileFragment fr = new ViewProfileFragment();
+//                                fm.beginTransaction().replace(R.id.drawer_layout,fr).commit();
+//                                mDrawerLayout.closeDrawers();
+                                startActivity(new Intent(UserProfileActivity.this,ViewProfileActivity.class));
                                 return true;
                             case R.id.log_out:
                                 userLogOut();
@@ -283,7 +288,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 // the address of the image from sd card
                 Uri imageUri = data.getData();
                 image_uri = imageUri;
-
+                clickable = true;
                 // declare a stream to read the image data from the SD card.
                 InputStream inputStream;
 
@@ -366,6 +371,15 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             Intent intent = new Intent(UserProfileActivity.this, FilterActivity.class);
             startActivity(intent);
         }
+
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(UserProfileActivity.this,UserProfileActivity.class));
+        finish();
 
     }
 }

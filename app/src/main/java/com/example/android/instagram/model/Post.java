@@ -9,6 +9,7 @@ public class Post {
     private String files;
     private String date_created;
     private String user;
+    private String name;
 
     public Post(String caption,String picture,String date_created){
 //        this.id = id;
@@ -70,6 +71,14 @@ public class Post {
 
     public String getUser() {
         return user;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 //    public void setUser(String user) {
