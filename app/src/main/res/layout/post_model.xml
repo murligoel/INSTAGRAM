@@ -42,7 +42,23 @@
 
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/post_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="like"/>
+
+    <TextView
+        android:id="@+id/like_count"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:text="count"
+        android:textSize="18dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="-5dp" />
 
     <TextView
         android:id="@+id/date_view"
@@ -51,6 +67,8 @@
         android:text="Date"
         android:textSize="20dp"
         android:layout_marginLeft="210dp"/>
+
+
 </LinearLayout>
 
 </LinearLayout>

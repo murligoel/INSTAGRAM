@@ -2,6 +2,7 @@ package com.example.android.instagram.Interface;
 
 import com.example.android.instagram.fragments.SignUpFragment;
 import com.example.android.instagram.model.Auth;
+import com.example.android.instagram.model.Like;
 import com.example.android.instagram.model.Post;
 import com.example.android.instagram.model.PostList;
 import com.example.android.instagram.model.Profile;
@@ -61,6 +62,9 @@ public interface APIService {
 
     @GET("logout/")
     Call<ResponseBody> logOut(@Header("Authorzation") String authtoken);
+
+    @GET("like/{id}/")
+    Call<Like> createLike(@Path("id") String id, @Header("Authorization") String authToken);
 
 
 }
