@@ -1,7 +1,6 @@
-package com.example.android.instagram.Adapter;
+package com.example.android.instagram.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -9,15 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.android.instagram.Interface.FiltersListFragmentListener;
 import com.example.android.instagram.R;
 import com.zomato.photofilters.imageprocessors.Filter;
 import com.zomato.photofilters.utils.ThumbnailItem;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 

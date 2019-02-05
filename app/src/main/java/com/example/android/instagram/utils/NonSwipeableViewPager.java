@@ -1,4 +1,4 @@
-package com.example.android.instagram.Utils;
+package com.example.android.instagram.utils;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

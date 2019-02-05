@@ -5,14 +5,12 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,20 +18,18 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.support.v7.widget.Toolbar;
-import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.example.android.instagram.Interface.APIService;
 import com.example.android.instagram.Interface.EditImageFragmentListener;
 import com.example.android.instagram.Interface.FiltersListFragmentListener;
 import com.example.android.instagram.R;
-import com.example.android.instagram.Utils.BitmapUtils;
+import com.example.android.instagram.utils.BitmapUtils;
 import com.example.android.instagram.fragments.EditImageFragment;
 import com.example.android.instagram.fragments.FilterListFragment;
 import com.example.android.instagram.fragments.LoginFragment;
@@ -225,8 +221,8 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
         }
 
         if(id == R.id.action_save){
-//            saveImageToGallery();
             if(clickable) {
+                saveImageToGallery();
                 clickable = false;
                 post();
             }
@@ -329,25 +325,29 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
                                         System.currentTimeMillis()+"profile.jpg"
                                         ,null);
 
-                                if(!TextUtils.isEmpty(path))
-                                {
-                                    Snackbar snackbar = Snackbar.make(coordinatorLayout,
-                                            "Image Saved to Gallery",
-                                            Snackbar.LENGTH_LONG)
-                                            .setAction("OPEN", new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    openImage(path);
-                                                }
-                                            });
-                                    snackbar.show();
-                                }
-                                else {
-                                    Snackbar snackbar = Snackbar.make(coordinatorLayout,
-                                            "Unable to save images",
-                                            Snackbar.LENGTH_LONG);
-                                    snackbar.show();
-                                }
+                                Uri data = Uri.parse(path);
+                                image_uri = data;
+//                                clickable = true;
+
+//                                if(!TextUtils.isEmpty(path))
+//                                {
+//                                    Snackbar snackbar = Snackbar.make(coordinatorLayout,
+//                                            "Image Saved to Gallery",
+//                                            Snackbar.LENGTH_LONG)
+//                                            .setAction("OPEN", new View.OnClickListener() {
+//                                                @Override
+//                                                public void onClick(View v) {
+//                                                    openImage(path);
+//                                                }
+//                                            });
+//                                    snackbar.show();
+//                                }
+//                                else {
+//                                    Snackbar snackbar = Snackbar.make(coordinatorLayout,
+//                                            "Unable to save images",
+//                                            Snackbar.LENGTH_LONG);
+//                                    snackbar.show();
+//                                }
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -402,10 +402,8 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(resultCode == RESULT_OK  && requestCode == PERMISSION_PICK_IMAGE)
         {
-            Uri imageUri = data.getData();
-            Bitmap bitmap = BitmapUtils.getBitmapFromGallery(this,imageUri,100,100);
-            image_uri = imageUri;
-            clickable = true;
+
+            Bitmap bitmap = BitmapUtils.getBitmapFromGallery(this,data.getData(),100,100);
 
             // clear bitmap memory
             originalBitmap.recycle();
@@ -427,21 +425,13 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
             originalBitmap.recycle();
             finalBitmap.recycle();
             filteredBitmap.recycle();
-            Uri tempUri = getImageUri(getApplicationContext(), photo);
-            image_uri = tempUri;
-            clickable = true;
 
 
             originalBitmap = photo.copy(Bitmap.Config.ARGB_8888,true);
             finalBitmap = originalBitmap.copy(Bitmap.Config.ARGB_8888,true);
             filteredBitmap = originalBitmap.copy(Bitmap.Config.ARGB_8888,true);
             img_preview.setImageBitmap(originalBitmap);
-//            img_preview.buildDrawingCache();
-//            Bitmap bitmap = img_preview.getDrawingCache();
-//
-//            Intent intent = new Intent(this, PostActivity.class);
-//            intent.putExtra("BitmapImage", bitmap);
-//            startActivity(intent);
+
 
 
             filterListFragment.displayThumbnail(originalBitmap);

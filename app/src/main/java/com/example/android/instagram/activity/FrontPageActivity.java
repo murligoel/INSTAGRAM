@@ -158,18 +158,18 @@ public class FrontPageActivity extends AppCompatActivity {
             public void onResponse(Call<User> call, Response<User> userResponse) {
                 progressDialog.dismiss();
                 if (userResponse.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "successful", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Verify Your Email", Toast.LENGTH_LONG).show();
                     // SharedPreference.getInstance(getApplicationContext()).userLogin(user);
                     // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                 } else {
-                    Toast.makeText(getApplicationContext(), "error1", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Response error", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Server Error", Toast.LENGTH_LONG).show();
             }
         });
 

@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="360dp" />
 
-    <com.example.android.instagram.Utils.NonSwipeableViewPager
+    <com.example.android.instagram.utils.NonSwipeableViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="120dp"

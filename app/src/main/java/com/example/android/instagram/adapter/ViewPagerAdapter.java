@@ -1,4 +1,4 @@
-package com.example.android.instagram.Adapter;
+package com.example.android.instagram.adapter;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;

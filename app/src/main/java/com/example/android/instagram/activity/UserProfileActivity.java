@@ -11,7 +11,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -26,23 +25,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.android.instagram.Adapter.PostAdapter;
+import com.example.android.instagram.adapter.PostAdapter;
 import com.example.android.instagram.Interface.APIService;
 import com.example.android.instagram.R;
-import com.example.android.instagram.fragments.EditProfileFragment;
 import com.example.android.instagram.fragments.LoginFragment;
-import com.example.android.instagram.fragments.ViewProfileFragment;
 import com.example.android.instagram.httpservice.HttpClientService;
 import com.example.android.instagram.model.Post;
-import com.example.android.instagram.model.PostList;
-import com.example.android.instagram.model.Profile;
-import com.example.android.instagram.model.User;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
@@ -52,8 +45,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.view.View.GONE;
 
 public class UserProfileActivity extends AppCompatActivity implements View.OnClickListener {
 

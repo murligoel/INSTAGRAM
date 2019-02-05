@@ -85,19 +85,19 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/images_from_gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="76dp"
+            android:layout_height="79dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_gravity="end|bottom"
-            android:layout_marginStart="307dp"
-            android:layout_marginLeft="307dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginRight="48dp"
-            android:layout_marginBottom="81dp"
+            android:layout_marginStart="294dp"
+            android:layout_marginLeft="294dp"
+            android:layout_marginEnd="41dp"
+            android:layout_marginRight="41dp"
+            android:layout_marginBottom="52dp"
             android:src="@drawable/ic_filter_black_1" />
             <!--android:layout_margin="16dp" />-->
 

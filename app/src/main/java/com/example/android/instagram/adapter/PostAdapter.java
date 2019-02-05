@@ -1,4 +1,4 @@
-package com.example.android.instagram.Adapter;
+package com.example.android.instagram.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

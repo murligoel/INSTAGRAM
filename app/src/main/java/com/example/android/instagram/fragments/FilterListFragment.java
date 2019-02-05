@@ -13,11 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.android.instagram.Adapter.ThumbnailAdapter;
+import com.example.android.instagram.adapter.ThumbnailAdapter;
 import com.example.android.instagram.Interface.FiltersListFragmentListener;
 import com.example.android.instagram.R;
-import com.example.android.instagram.Utils.BitmapUtils;
-import com.example.android.instagram.Utils.SpacesItemDecoration;
+import com.example.android.instagram.utils.BitmapUtils;
+import com.example.android.instagram.utils.SpacesItemDecoration;
 import com.example.android.instagram.activity.FilterActivity;
 import com.zomato.photofilters.FilterPack;
 import com.zomato.photofilters.imageprocessors.Filter;

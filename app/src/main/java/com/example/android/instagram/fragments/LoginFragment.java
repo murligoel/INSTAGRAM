@@ -128,7 +128,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 progressDialog.dismiss();
 
                 if(userResponse.isSuccessful()) {
-                    Toast.makeText(getActivity(), userResponse.body().getUserId(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "login success", Toast.LENGTH_LONG).show();
                     userId = userResponse.body().getUserId();
                     Log.e("value",userId+"");
                     getToken();
@@ -177,7 +177,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 if (response.isSuccessful()){
 //                    Toast.makeText(getApplicationContext(), "authentication successfull", Toast.LENGTH_LONG).show();
 //                    Toast.makeText(<>, "Please long press the key", Toast.LENGTH_LONG );
-                    Toast.makeText(getActivity(),response.body().getToken(),Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getActivity(),response.body().getToken(),Toast.LENGTH_LONG).show();
                     token = response.body().getToken();
                     Intent intent = new Intent(getActivity(), UserProfileActivity.class);
                     startActivity(intent);
