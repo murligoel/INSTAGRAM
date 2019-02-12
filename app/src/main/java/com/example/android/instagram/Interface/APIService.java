@@ -66,5 +66,7 @@ public interface APIService {
     @GET("like/{id}/")
     Call<Like> createLike(@Path("id") String id, @Header("Authorization") String authToken);
 
-
+    @Multipart
+    @POST("comment/{id}/")
+    Call<ResponseBody> commentPost(@Path("id") String id, @Header("Authorization") String authToken,@Part("text") RequestBody text);
 }

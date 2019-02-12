@@ -2,6 +2,7 @@ package com.example.android.instagram.adapter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,7 +15,10 @@ import android.widget.Toast;
 
 import com.example.android.instagram.Interface.APIService;
 import com.example.android.instagram.R;
+import com.example.android.instagram.activity.MessageActivity;
+import com.example.android.instagram.activity.PostActivity;
 import com.example.android.instagram.activity.UserProfileActivity;
+import com.example.android.instagram.activity.ViewProfileActivity;
 import com.example.android.instagram.fragments.LoginFragment;
 import com.example.android.instagram.httpservice.HttpClientService;
 import com.example.android.instagram.model.Like;
@@ -31,6 +35,7 @@ import retrofit2.Response;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
     private ArrayList<Post>  mPost;
     private Context mContext;
+    public static String like;
 
     public PostAdapter(ArrayList<Post> post){
         mPost = post;
@@ -50,7 +55,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
         final String dateView = currentPost.getDate_created();
         final String caption = currentPost.getCaption();
         final String userName = currentPost.getName();
-        final String like = currentPost.getId();
+//        final String like = currentPost.getId();
+        like = currentPost.getId();
 
         holder.dateText.setText(dateView);
         holder.captionText.setText(caption);
@@ -72,7 +78,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
 
                         if (response.isSuccessful()){
                             Toast.makeText(mContext, response.body().getDetail(), Toast.LENGTH_SHORT).show();
-                            holder.likeCountText.setText(response.body().getDetail());
+//                            holder.likeCountText.setText(response.body().getDetail());
+                            String user_detail = response.body().getDetail();
+                            holder.likeCountText.setText(user_detail);
                         }
                         else {
                             Toast.makeText(mContext, "error1", Toast.LENGTH_SHORT).show();
@@ -88,8 +96,24 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
                 
             }
         });
+
+
+
+        holder.messageComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent messageactivity = new Intent(mContext.getApplicationContext(), MessageActivity.class);
+                mContext.getApplicationContext().startActivity(messageactivity);
+            }
+        });
         
     }
+
+    public static String get_Like() {
+        return like;
+    }
+
+
 
     @Override
     public int getItemCount() {
@@ -100,7 +124,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
         public ImageView imageView;
         public TextView dateText;
         public TextView captionText,nameText,likeCountText;
-        public Button likeCount;
+        public Button likeCount,messageComment;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -111,6 +135,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
             nameText = itemView.findViewById(R.id.name_view);
             likeCount = itemView.findViewById(R.id.post_like);
             likeCountText = itemView.findViewById(R.id.like_count);
+            messageComment = itemView.findViewById(R.id.message_comment);
         }
     }
 }
