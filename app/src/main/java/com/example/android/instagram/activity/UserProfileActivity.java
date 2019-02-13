@@ -55,7 +55,6 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private ArrayList<Post> mPost = new ArrayList<>() ;
-//    private Post mPost;
     private RecyclerView recyclerView;
     private PostAdapter eAdapter;
     private ProgressDialog pDialog;

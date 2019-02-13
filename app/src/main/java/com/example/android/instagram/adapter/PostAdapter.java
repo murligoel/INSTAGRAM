@@ -35,7 +35,7 @@ import retrofit2.Response;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
     private ArrayList<Post>  mPost;
     private Context mContext;
-    public static String like;
+    public static String liked;
 
     public PostAdapter(ArrayList<Post> post){
         mPost = post;
@@ -55,8 +55,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
         final String dateView = currentPost.getDate_created();
         final String caption = currentPost.getCaption();
         final String userName = currentPost.getName();
-//        final String like = currentPost.getId();
-        like = currentPost.getId();
+        final String like = currentPost.getId();
+//        like = currentPost.getId();
+
 
         holder.dateText.setText(dateView);
         holder.captionText.setText(caption);
@@ -99,19 +100,26 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
 
 
 
+
         holder.messageComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent messageactivity = new Intent(mContext.getApplicationContext(), MessageActivity.class);
                 mContext.getApplicationContext().startActivity(messageactivity);
+                liked = like;
+                Toast.makeText(mContext,liked, Toast.LENGTH_LONG).show();
+
             }
         });
+
         
     }
 
     public static String get_Like() {
-        return like;
+        return liked;
     }
+
+
 
 
 

@@ -2,6 +2,8 @@ package com.example.android.instagram.Interface;
 
 import com.example.android.instagram.fragments.SignUpFragment;
 import com.example.android.instagram.model.Auth;
+import com.example.android.instagram.model.Comment;
+import com.example.android.instagram.model.CommentList;
 import com.example.android.instagram.model.Like;
 import com.example.android.instagram.model.Post;
 import com.example.android.instagram.model.PostList;
@@ -69,4 +71,7 @@ public interface APIService {
     @Multipart
     @POST("comment/{id}/")
     Call<ResponseBody> commentPost(@Path("id") String id, @Header("Authorization") String authToken,@Part("text") RequestBody text);
+
+    @GET("comment/{id}/")
+    Call<CommentList> getComments(@Path("id") String id, @Header("Authorization") String authToken);
 }
