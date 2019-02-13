@@ -20,6 +20,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -74,4 +75,7 @@ public interface APIService {
 
     @GET("comment/{id}/")
     Call<CommentList> getComments(@Path("id") String id, @Header("Authorization") String authToken);
+
+    @DELETE("comment_edit/{id}/")
+    Call<ResponseBody> commentDelete(@Path("id") String id, @Header("Authorization") String authToken);
 }

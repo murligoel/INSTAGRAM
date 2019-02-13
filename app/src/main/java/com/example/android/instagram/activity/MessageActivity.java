@@ -74,7 +74,7 @@ public class MessageActivity extends AppCompatActivity {
         createComment();
     }
 
-    private void createComment() {
+    public void createComment() {
 
         pDialog = new ProgressDialog(MessageActivity.this);
         pDialog.setMessage("Please wait...");
