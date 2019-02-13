@@ -46,9 +46,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         Comment currentPostComment = mComment.get(position);
 
         final String textView = currentPostComment.getText();
+        final String textName = currentPostComment.getName();
         final String commentId = currentPostComment.getId();
 
         holder.commentText.setText(textView);
+        holder.commentName.setText(textName);
         holder.deleteComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,9 +64,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
 
                         if (response.isSuccessful()){
                             Toast.makeText(mContext, "delete success", Toast.LENGTH_SHORT).show();
-////                            holder.likeCountText.setText(response.body().getDetail());
-//                            String user_detail = response.body().getDetail();
-//                            holder.likeCountText.setText(user_detail);
                         }
                         else {
                             Toast.makeText(mContext, "error1", Toast.LENGTH_SHORT).show();
@@ -89,13 +88,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView commentText;
+        public TextView commentText,commentName;
         public Button deleteComment;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             commentText = itemView.findViewById(R.id.text_comment);
+            commentName = itemView.findViewById(R.id.post_comment_name);
             deleteComment = itemView.findViewById(R.id.delete_comment);
         }
     }
