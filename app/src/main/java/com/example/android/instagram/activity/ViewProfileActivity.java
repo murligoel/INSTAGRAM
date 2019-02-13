@@ -3,8 +3,11 @@ package com.example.android.instagram.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.UserHandle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -13,10 +16,18 @@ import android.widget.Toast;
 
 import com.example.android.instagram.Interface.APIService;
 import com.example.android.instagram.R;
+import com.example.android.instagram.adapter.PostAdapter;
+import com.example.android.instagram.adapter.UserPostAdapter;
 import com.example.android.instagram.fragments.LoginFragment;
 import com.example.android.instagram.httpservice.HttpClientService;
+import com.example.android.instagram.model.CommentList;
+import com.example.android.instagram.model.Post;
 import com.example.android.instagram.model.Profile;
+import com.example.android.instagram.model.UserPost;
+import com.example.android.instagram.model.UserPostList;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -29,6 +40,11 @@ public class ViewProfileActivity extends AppCompatActivity {
     private TextView userProfileBio,userProfileName;
     private Button editYourProfile;
     private Context mContext;
+    private ArrayList<UserPost> mPost = new ArrayList<>() ;
+    //    private Post mPost;
+    private RecyclerView recyclerView;
+    private UserPostAdapter eAdapter;
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +67,11 @@ public class ViewProfileActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_user_post);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ViewProfileActivity.this,LinearLayoutManager.HORIZONTAL,false);
+        recyclerView.setLayoutManager(layoutManager);
         editYourProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +115,7 @@ public class ViewProfileActivity extends AppCompatActivity {
                             .fit()
                             .centerCrop()
                             .into(circularProfileImage);
+                    creatingUserPost();
 
                 }
                 else{
@@ -107,6 +129,47 @@ public class ViewProfileActivity extends AppCompatActivity {
             public void onFailure( Call<Profile> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+    private void creatingUserPost() {
+
+        pDialog = new ProgressDialog(ViewProfileActivity.this);
+        pDialog.setMessage("Please wait...");
+        pDialog.setCancelable(false);
+        pDialog.show();
+
+        APIService service = HttpClientService.getClient().create(APIService.class);
+        Call<UserPostList> call = service.viewUserPost("JWT " +LoginFragment.get_Token());
+
+        call.enqueue(new Callback<UserPostList>() {
+            @Override
+            public void onResponse(Call<UserPostList> call, Response<UserPostList> response) {
+                pDialog.dismiss();
+
+                if (response.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
+
+                    mPost = response.body().getPost();
+
+                    String[] posts = new String[mPost.size()];
+
+                    eAdapter = new UserPostAdapter(mPost);
+                    recyclerView.setAdapter(eAdapter);
+
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "error1", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserPostList> call, Throwable t) {
+                pDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+
             }
         });
 

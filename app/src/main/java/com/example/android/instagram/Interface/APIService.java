@@ -10,6 +10,7 @@ import com.example.android.instagram.model.PostList;
 import com.example.android.instagram.model.Profile;
 import com.example.android.instagram.model.User;
 import com.example.android.instagram.model.Result;
+import com.example.android.instagram.model.UserPostList;
 
 
 import java.util.ArrayList;
@@ -78,4 +79,8 @@ public interface APIService {
 
     @DELETE("comment_edit/{id}/")
     Call<ResponseBody> commentDelete(@Path("id") String id, @Header("Authorization") String authToken);
+
+    @GET("post/users_Post/")
+    Call<UserPostList> viewUserPost(@Header("Authorization") String authToken);
+
 }
