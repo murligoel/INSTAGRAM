@@ -64,7 +64,7 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
     public static final int PERMISSION_PICK_IMAGE = 1000;
     public static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
-    Uri image_uri;
+    public static Uri image_uri;
 
     ImageView img_preview;
     TabLayout tabLAyout;
@@ -223,8 +223,9 @@ public class FilterActivity extends AppCompatActivity implements FiltersListFrag
         if(id == R.id.action_save){
             if(clickable) {
                 saveImageToGallery();
-                clickable = false;
-                post();
+//                clickable = false;
+//                post();
+                startActivity(new Intent(FilterActivity.this,PostActivity.class));
             }
 //            startActivity(new Intent(FilterActivity.this,PostActivity.class));
             return true;
