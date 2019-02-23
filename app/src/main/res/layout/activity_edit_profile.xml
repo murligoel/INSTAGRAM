@@ -33,23 +33,23 @@
         app:civ_border_color="#FF000000"
         app:civ_border_width="2dp" />
 
-    <Button
-        android:id="@+id/pick_profile_image_from_gallery"
-        android:layout_width="47dp"
-        android:layout_height="36dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="215dp"
-        android:layout_marginLeft="215dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginRight="148dp"
-        android:layout_marginBottom="440dp"
-        android:background="@drawable/button_gradient_yellow"
-        android:text="+"
-        android:textSize="20dp" />
+    <!--<Button-->
+        <!--android:id="@+id/pick_profile_image_from_gallery"-->
+        <!--android:layout_width="47dp"-->
+        <!--android:layout_height="36dp"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="215dp"-->
+        <!--android:layout_marginLeft="215dp"-->
+        <!--android:layout_marginEnd="148dp"-->
+        <!--android:layout_marginRight="148dp"-->
+        <!--android:layout_marginBottom="440dp"-->
+        <!--android:background="@drawable/button_gradient_yellow"-->
+        <!--android:text="+"-->
+        <!--android:textSize="20dp" />-->
 
 
     <EditText
@@ -112,6 +112,20 @@
         android:text="Update"
         android:textColor="@color/white"
         android:textSize="20dp"/>
+
+    <Button
+        android:id="@+id/pick_profile_image_from_gallery"
+        android:layout_width="37dp"
+        android:layout_height="33dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="119dp"
+        android:layout_marginRight="119dp"
+        android:layout_marginBottom="460dp"
+        android:background="@drawable/button_gradient_yellow"
+        android:text="+"
+        android:textSize="20dp" />
 
 
 </RelativeLayout>

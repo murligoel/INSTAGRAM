@@ -90,27 +90,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         drawerToggle = new ActionBarDrawerToggle(UserProfileActivity.this, mDrawerLayout, R.string.Open, R.string.Close);
         mDrawerLayout.setDrawerListener(drawerToggle);
 
-        caption = (EditText) findViewById(R.id.caption_for_post);
-        postImage = (CircleImageView) findViewById(R.id.post_getting_from_gallery);
-        openGallery = (Button) findViewById(R.id.opening_gallery_for_post);
-        postOnClick = (Button) findViewById(R.id.post_on_click);
 
-        openGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gallery();
-            }
-        });
-
-        postOnClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(clickable) {
-                    clickable = false;
-                    post();
-                }
-            }
-        });
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
@@ -181,93 +161,6 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    private String getRealPathFromURI(Uri contentURI) {
-        String result;
-        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
-        if (cursor == null) { // Source is Dropbox or other similar local file path
-            result = contentURI.getPath();
-        } else {
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            result = cursor.getString(idx);
-            cursor.close();
-        }
-        return result;
-    }
-
-    private void post() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Uploading Post....");
-        progressDialog.show();
-
-        String post_caption = caption.getText().toString().trim();
-
-
-        APIService service = HttpClientService.getClient().create(APIService.class);
-
-        if(image_uri != null) {
-            File file = new File(String.valueOf(getRealPathFromURI(image_uri)));
-            RequestBody requestFile =
-                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
-            // MultipartBody.Part is used to send also the actual file name
-            MultipartBody.Part body =
-                    MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
-
-            RequestBody caption_post = RequestBody.create(MediaType.parse("text/plain"), post_caption);
-
-            Call<ResponseBody> call = service.createPost("JWT " + LoginFragment.get_Token(), caption_post, body);
-
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> userResponse) {
-                    progressDialog.dismiss();
-                    if (userResponse.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "successful", Toast.LENGTH_LONG).show();
-                        create_Post();
-                        // SharedPreference.getInstance(getApplicationContext()).userLogin(user);
-                        // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                    } else {
-                        Toast.makeText(getApplicationContext(), "error1", Toast.LENGTH_LONG).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    progressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
-                }
-            });
-        }
-        else {
-            progressDialog.dismiss();
-            Toast.makeText(getApplicationContext(), "image required", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void gallery(){
-
-        // invoke the image gallery using an implicit intent
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-
-        // where do we want to find the data?
-        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        String pictureDirectoryPath = pictureDirectory.getPath();
-
-
-
-
-        // finally, get a URI representation
-        Uri data = Uri.parse(pictureDirectoryPath);
-
-
-        // set the data and type. Get all image types.
-        photoPickerIntent.setDataAndType(data, "image/*");
-
-        // we will invoke this activity and get something back from it
-        startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){
