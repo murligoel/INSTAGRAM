@@ -101,18 +101,15 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
                         switch (id){
                             case R.id.nav_profile:
-//                                imageFromGallery.setVisibility(GONE);
-//                                openGallery.setVisibility(GONE);
-//                                postOnClick.setVisibility(GONE);
-//                                FragmentManager fm = getSupportFragmentManager();
-//                                ViewProfileFragment fr = new ViewProfileFragment();
-//                                fm.beginTransaction().replace(R.id.drawer_layout,fr).commit();
-//                                mDrawerLayout.closeDrawers();
                                 startActivity(new Intent(UserProfileActivity.this,ViewProfileActivity.class));
                                 return true;
                             case R.id.log_out:
                                 userLogOut();
                                 return true;
+                            case R.id.add_friend:
+                                startActivity(new Intent(UserProfileActivity.this,AddFriendActivity.class));
+                                return true;
+
                         }
 
                         return true;

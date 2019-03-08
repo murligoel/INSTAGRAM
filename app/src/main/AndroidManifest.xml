@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".activity.MessageActivity"></activity>
+        <activity android:name=".activity.AddFriendActivity"></activity>
+        <activity android:name=".activity.MessageActivity" />
         <activity android:name=".activity.PostActivity" />
         <activity android:name=".activity.ViewProfileActivity" />
         <activity android:name=".activity.EditProfileActivity" />

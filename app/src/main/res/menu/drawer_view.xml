@@ -12,6 +12,10 @@
             android:icon="@drawable/ic_subdirectory_arrow_right"
             android:title="LOG OUT" />
 
+        <item
+            android:id="@+id/add_friend"
+            android:title="ADD FRIEND" />
+
 
     </group>
 </menu>
