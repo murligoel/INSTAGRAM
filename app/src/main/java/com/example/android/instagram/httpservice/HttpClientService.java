@@ -16,7 +16,7 @@ public class HttpClientService {
 
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://68e43792.ngrok.io/")
+                .baseUrl("http://c02d712f.ngrok.io/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
@@ -24,3 +24,10 @@ public class HttpClientService {
         return retrofit;
     }
 }
+
+//    OkHttpClient.Builder builder = new OkHttpClient.Builder();
+//builder.connectTimeout(5, TimeUnit.MINUTES) // connect timeout
+//        .writeTimeout(5, TimeUnit.MINUTES) // write timeout
+//        .readTimeout(5, TimeUnit.MINUTES); // read timeout
+//
+//        okHttpClient = builder.build();

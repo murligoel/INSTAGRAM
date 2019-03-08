@@ -1,7 +1,9 @@
 package com.example.android.instagram.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +27,7 @@ import com.example.android.instagram.fragments.LoginFragment;
 import com.example.android.instagram.fragments.SignUpFragment;
 import com.example.android.instagram.fragments.ViewProfileFragment;
 import com.example.android.instagram.httpservice.HttpClientService;
+import com.example.android.instagram.model.Result;
 import com.example.android.instagram.model.User;
 
 import android.support.v4.view.ViewPager;
@@ -38,9 +42,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.view.View.GONE;
+//import static com.example.android.instagram.fragments.LoginFragment.Name;
+//import static com.example.android.instagram.fragments.LoginFragment.Password;
 
 public class FrontPageActivity extends AppCompatActivity {
 
+//    SharedPreferences sharedPreferences;
     private Controller controller;
     private Button buttonSignUp, loginIntent;
     private EditText userName, password, email, firstName, lastName;
@@ -78,6 +85,61 @@ public class FrontPageActivity extends AppCompatActivity {
             }
         });
         controller = (Controller) getApplicationContext();
+
+//        if(Name.length() > 0 && Password.length() > 0){
+//            APIService service = HttpClientService.getClient().create(APIService.class);
+//
+//
+//
+//            sharedPreferences = getSharedPreferences(LoginFragment.mypreference, Context.MODE_PRIVATE);
+//
+//            Result result = new Result();
+//
+//            if (sharedPreferences.contains(Name)) {
+//                userName.setText(sharedPreferences.getString(Name, ""));
+//            }
+//            if (sharedPreferences.contains(Password)) {
+//                password.setText(sharedPreferences.getString(Password, ""));
+//
+//            }
+//
+//            result.setUsername(Name);
+//            result.setPassword(Password);
+//
+//            Call<Result> call = service.createUser(result);
+//
+//
+//
+//            call.enqueue(new Callback<Result>() {
+//                @Override
+//                public void onResponse( Call<Result> call, Response<Result> userResponse) {
+////                    progressDialog.dismiss();
+//
+//                    if(userResponse.isSuccessful()) {
+//                        Toast.makeText(getApplicationContext(), "login success", Toast.LENGTH_LONG).show();
+////                        userId = userResponse.body().getUserId();
+////                        Log.e("value",userId+"");
+////                        getToken();
+//                        //    SharedPreference.getInstance(getApplicationContext()).;
+//                        // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+//                    }
+//                    else{
+//                        Toast.makeText(getApplicationContext(), "login not correct", Toast.LENGTH_LONG).show();
+//                    }
+//
+//                }
+//
+//
+//
+//                @Override
+//                public void onFailure( Call<Result> call, Throwable t) {
+////                    progressDialog.dismiss();
+//                    Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+//                }
+//            });
+//
+//
+//        }
     }
 
     User user = null;

@@ -18,10 +18,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="27dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="27dp"
         android:layout_marginEnd="29dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="522dp"
+        android:layout_marginRight="29dp"
+        android:layout_marginBottom="503dp"
         android:src="@drawable/instagram_logo" />
 
 

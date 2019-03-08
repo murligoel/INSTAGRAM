@@ -76,16 +76,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
-//    Result result = null;
+    //    Result result = null;
     private void userLogIn(){
 
 //        final ProgressDialog progressDialog = new ProgressDialog(this);
 //        progressDialog.setMessage("Signing Up...");
 //        progressDialog.show();
         final ProgressDialog progressDialog = ProgressDialog.show(getActivity(),
-                                       "Loging In",
-                                       "Please wait...",
-                                       true);
+                "Loging In",
+                "Please wait...",
+                true);
 
 
         String user_name = userName.getText().toString().trim();

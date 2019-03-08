@@ -35,7 +35,7 @@ public class UserPostAdapter extends RecyclerView.Adapter<UserPostAdapter.MyView
         UserPost currentPost = mPost.get(position);
         String imageUrl = currentPost.getPicture();
         Picasso.with(mContext)
-                .load(imageUrl)
+                .load("http://c02d712f.ngrok.io"+imageUrl)
                 .placeholder(R.drawable.message)
                 .fit()
                 .centerCrop()

@@ -3,6 +3,7 @@ package com.example.android.instagram.adapter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -35,7 +36,8 @@ import retrofit2.Response;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
     private ArrayList<Post>  mPost;
     private Context mContext;
-    public static String liked;
+    public static String liked,count;
+
 
     public PostAdapter(ArrayList<Post> post){
         mPost = post;
@@ -48,18 +50,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
         return new MyViewHolder(v);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
         Post currentPost = mPost.get(position);
         String imageUrl = currentPost.getPicture();
-        final String dateView = currentPost.getDate_created();
         final String caption = currentPost.getCaption();
         final String userName = currentPost.getName();
         final String like = currentPost.getId();
-//        like = currentPost.getId();
 
 
-        holder.dateText.setText(dateView);
         holder.captionText.setText(caption);
         holder.nameText.setText(userName);
         Picasso.with(mContext)
@@ -81,6 +81,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
                             Toast.makeText(mContext, response.body().getDetail(), Toast.LENGTH_SHORT).show();
 //                            holder.likeCountText.setText(response.body().getDetail());
                             String user_detail = response.body().getDetail();
+//                            SharedPreferences countSettings = mContext.getSharedPreferences("count",0);
+//                             count = countSettings.getString("counts",""+user_detail);
+//                            final SharedPreferences.Editor edit = countSettings.edit();
+//                            edit.putString("counts",count);
+//                            edit.commit();
                             holder.likeCountText.setText(user_detail);
                         }
                         else {
@@ -112,7 +117,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
             }
         });
 
-        
+//        holder.likeCountText.setText(count);
     }
 
     public static String get_Like() {
@@ -130,7 +135,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
-        public TextView dateText;
         public TextView captionText,nameText,likeCountText;
         public Button likeCount,messageComment;
 
@@ -138,7 +142,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
             super(itemView);
 
             imageView = itemView.findViewById(R.id.image_view);
-            dateText = itemView.findViewById(R.id.date_view);
             captionText = itemView.findViewById(R.id.caption_view);
             nameText = itemView.findViewById(R.id.name_view);
             likeCount = itemView.findViewById(R.id.post_like);
