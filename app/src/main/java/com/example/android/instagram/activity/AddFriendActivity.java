@@ -1,20 +1,41 @@
 package com.example.android.instagram.activity;
 
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Toast;
 
+import com.example.android.instagram.Interface.APIService;
 import com.example.android.instagram.R;
+import com.example.android.instagram.adapter.AddFriendAdapter;
+import com.example.android.instagram.fragments.LoginFragment;
+import com.example.android.instagram.httpservice.HttpClientService;
+import com.example.android.instagram.model.AddFriendModel;
+import com.example.android.instagram.model.Post;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddFriendActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private ProgressDialog pDialog;
+    private AddFriendAdapter eAdapter;
+    private ArrayList<AddFriendModel> mFriend = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +52,10 @@ public class AddFriendActivity extends AppCompatActivity {
             }
         });
 
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_add_friend);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(AddFriendActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -53,6 +78,47 @@ public class AddFriendActivity extends AppCompatActivity {
                 AddFriendActivity.this.setTitle(query);
 //                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query=recipe "+query));
 //                startActivity(intent);
+
+                pDialog = new ProgressDialog(AddFriendActivity.this);
+                pDialog.setMessage("Please wait...");
+                pDialog.setCancelable(false);
+                pDialog.show();
+
+                APIService service = HttpClientService.getClient().create(APIService.class);
+
+
+                Call<ArrayList<AddFriendModel>> call = service.addFriend(query,"JWT " + LoginFragment.get_Token());
+
+                call.enqueue(new Callback<ArrayList<AddFriendModel>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<AddFriendModel>> call, Response<ArrayList<AddFriendModel>> response) {
+                        pDialog.dismiss();
+
+                        if (response.isSuccessful()){
+                            Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
+
+                            mFriend = response.body();
+
+                            String[] posts = new String[mFriend.size()];
+
+                            eAdapter = new AddFriendAdapter(mFriend);
+                            recyclerView.setAdapter(eAdapter);
+
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "error1", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<AddFriendModel>> call, Throwable t) {
+                        pDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+
                 return true;
             }
             //method called everytime the query text changed by user

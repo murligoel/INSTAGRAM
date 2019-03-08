@@ -1,6 +1,7 @@
 package com.example.android.instagram.Interface;
 
 import com.example.android.instagram.fragments.SignUpFragment;
+import com.example.android.instagram.model.AddFriendModel;
 import com.example.android.instagram.model.Auth;
 import com.example.android.instagram.model.Comment;
 import com.example.android.instagram.model.CommentList;
@@ -30,6 +31,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface APIService {
 
@@ -82,5 +84,8 @@ public interface APIService {
 
     @GET("post/users_Post/")
     Call<UserPostList> viewUserPost(@Header("Authorization") String authToken);
+
+    @GET("add_friend/")
+    Call<ArrayList<AddFriendModel>> addFriend(@Query("search") String search, @Header("Authorization") String authToken);
 
 }
