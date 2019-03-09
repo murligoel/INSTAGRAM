@@ -88,4 +88,10 @@ public interface APIService {
     @GET("add_friend/")
     Call<ArrayList<AddFriendModel>> addFriend(@Query("search") String search, @Header("Authorization") String authToken);
 
+    @GET("add_friend/{id}/")
+    Call<ResponseBody> addSearchedFriend(@Path("id") String id,@Query("search") String search,@Header("Authorization") String authToken);
+
+    @GET("profile/{id}/")
+    Call<Profile> viewDifferentUserProfile(@Path("id") String id, @Header("Authorization") String authToken);
+
 }

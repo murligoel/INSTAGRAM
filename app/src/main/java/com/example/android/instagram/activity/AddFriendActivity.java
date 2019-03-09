@@ -56,6 +56,48 @@ public class AddFriendActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(AddFriendActivity.this);
         recyclerView.setLayoutManager(layoutManager);
+
+        addFriend();
+    }
+
+    private void addFriend() {
+        pDialog = new ProgressDialog(AddFriendActivity.this);
+        pDialog.setMessage("Please wait...");
+        pDialog.setCancelable(false);
+        pDialog.show();
+
+        APIService service = HttpClientService.getClient().create(APIService.class);
+
+
+        Call<ArrayList<AddFriendModel>> call = service.addFriend("","JWT " + LoginFragment.get_Token());
+
+        call.enqueue(new Callback<ArrayList<AddFriendModel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<AddFriendModel>> call, Response<ArrayList<AddFriendModel>> response) {
+                pDialog.dismiss();
+
+                if (response.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
+
+                    mFriend = response.body();
+
+                    eAdapter = new AddFriendAdapter(mFriend);
+                    recyclerView.setAdapter(eAdapter);
+
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "error1", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<AddFriendModel>> call, Throwable t) {
+                pDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu){

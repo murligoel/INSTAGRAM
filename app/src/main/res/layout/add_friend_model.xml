@@ -28,13 +28,15 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/add_friend_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="ADD FRIEND"/>
 
-
-
-
-
+    <Button
+        android:id="@+id/view_other_users_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="VIEW PROFILE" />
 
 </LinearLayout>

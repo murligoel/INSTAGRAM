@@ -59,6 +59,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
         final String userName = currentPost.getName();
         final String like = currentPost.getId();
 
+//        like = currentPost.getId();
+
 
         holder.captionText.setText(caption);
         holder.nameText.setText(userName);
