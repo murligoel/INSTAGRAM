@@ -9,6 +9,7 @@ import com.example.android.instagram.model.Like;
 import com.example.android.instagram.model.Post;
 import com.example.android.instagram.model.PostList;
 import com.example.android.instagram.model.Profile;
+import com.example.android.instagram.model.TokenRefreshModel;
 import com.example.android.instagram.model.User;
 import com.example.android.instagram.model.Result;
 import com.example.android.instagram.model.UserPostList;
@@ -47,6 +48,8 @@ public interface APIService {
     @POST("auth-jwt-obtain/")
     Call<Auth> fetchToken(@Body Auth auth);
 
+    @POST("auth-jwt-refresh/")
+    Call<TokenRefreshModel> refreshToken(@Body TokenRefreshModel token);
 
     @Multipart
     @PUT("profile/{id}/")

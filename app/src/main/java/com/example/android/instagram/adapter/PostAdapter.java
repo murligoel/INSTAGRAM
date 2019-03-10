@@ -86,6 +86,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
                             Toast.makeText(mContext, response.body().getDetail(), Toast.LENGTH_SHORT).show();
 //                            holder.likeCountText.setText(response.body().getDetail());
                             String user_detail = response.body().getDetail();
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("userlike",user_detail);
+                            editor.apply();
 //                            SharedPreferences countSettings = mContext.getSharedPreferences("count",0);
 //                             count = countSettings.getString("counts",""+user_detail);
 //                            final SharedPreferences.Editor edit = countSettings.edit();
@@ -121,8 +124,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
 
             }
         });
+        String likes = sharedPref.getString("userlike","");
 
-//        holder.likeCountText.setText(count);
+        holder.likeCountText.setText(likes);
     }
 
     public static String get_Like() {

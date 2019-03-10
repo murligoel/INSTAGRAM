@@ -12,12 +12,15 @@ import android.widget.Toast;
 import com.example.android.instagram.Interface.APIService;
 import com.example.android.instagram.R;
 import com.example.android.instagram.httpservice.HttpClientService;
+import com.example.android.instagram.model.Auth;
 import com.example.android.instagram.model.Result;
+import com.example.android.instagram.model.TokenRefreshModel;
 
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,13 +28,15 @@ import retrofit2.Response;
 public class SplashScreenActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
+    SharedPreferences sharedPref;
+    private static String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        SharedPreferences sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
 
         String name = sharedPref.getString("username","");
         String pw = sharedPref.getString("password","");
@@ -66,8 +71,9 @@ public class SplashScreenActivity extends AppCompatActivity {
 
                     if(userResponse.isSuccessful()) {
                         Toast.makeText(getApplicationContext(), "login success", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(SplashScreenActivity.this, UserProfileActivity.class);
-                        startActivity(intent);
+                         getToken();
+//                        Intent intent = new Intent(SplashScreenActivity.this, UserProfileActivity.class);
+//                        startActivity(intent);
 //                        userId = userResponse.body().getUserId();
 //                        Log.e("value",userId+"");
 //                        getToken();
@@ -89,6 +95,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 }
             });
 
+
         } else {
             new Timer().schedule(new TimerTask() {
                 public void run() {
@@ -98,4 +105,45 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
 
     }
+
+    private void getToken() {
+
+        APIService service = HttpClientService.getClient().create(APIService.class);
+
+        String token1 = sharedPref.getString("usertoken","");
+        TokenRefreshModel tokenRefreshModel = new TokenRefreshModel();
+        tokenRefreshModel.setToken(token1);
+
+        Call<TokenRefreshModel> call = service.refreshToken(tokenRefreshModel);
+
+
+        call.enqueue(new Callback<TokenRefreshModel>() {
+            @Override
+            public void onResponse(Call<TokenRefreshModel> call, Response<TokenRefreshModel> response) {
+                if (response.isSuccessful()){
+//                    Toast.makeText(getApplicationContext(), "authentication successfull", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(<>, "Please long press the key", Toast.LENGTH_LONG );
+//                    Toast.makeText(getActivity(),response.body().getToken(),Toast.LENGTH_LONG).show();
+                    token = response.body().getToken();
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("usertoken",token);
+                    editor.apply();
+
+                    Intent intent = new Intent(getApplicationContext(), UserProfileActivity.class);
+                    startActivity(intent);
+
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "token is not correct", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TokenRefreshModel> call, Throwable t) {
+
+                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 }
