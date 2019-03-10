@@ -1,6 +1,7 @@
 package com.example.android.instagram.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ import retrofit2.Response;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHolder>{
     private ArrayList<Comment> mComment;
     private Context mContext;
+    SharedPreferences sharedPref;
 
     public CommentAdapter(ArrayList<Comment> comment){
         mComment = comment;
@@ -38,6 +40,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         mContext = parent.getContext();
         View v = LayoutInflater.from(mContext).inflate(R.layout.comment_model,parent,false);
+        sharedPref = mContext.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         return new MyViewHolder(v);
     }
 
@@ -55,8 +58,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
             @Override
             public void onClick(View v) {
 
+                String token = sharedPref.getString("usertoken","");
+
                 APIService service = HttpClientService.getClient().create(APIService.class);
-                Call<ResponseBody> call = service.commentDelete(commentId,"JWT " + LoginFragment.get_Token());
+                Call<ResponseBody> call = service.commentDelete(commentId,"JWT " + token);
 
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override

@@ -1,7 +1,9 @@
 package com.example.android.instagram.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,6 +38,7 @@ public class PostActivity extends AppCompatActivity {
 
     private EditText caption;
     private Button post;
+    SharedPreferences sharedPref;
 
 
     @Override
@@ -58,6 +61,9 @@ public class PostActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+
 
         File fileLocation = new File(String.valueOf(getRealPathFromURI(FilterActivity.image_uri))); //file path, which can be String, or Uri
 
@@ -100,6 +106,7 @@ public class PostActivity extends AppCompatActivity {
 
         String post_caption = caption.getText().toString().trim();
 
+        String token = sharedPref.getString("usertoken","");
 
         APIService service = HttpClientService.getClient().create(APIService.class);
 
@@ -114,7 +121,7 @@ public class PostActivity extends AppCompatActivity {
 
             RequestBody caption_post = RequestBody.create(MediaType.parse("text/plain"), post_caption);
 
-            Call<ResponseBody> call = service.createPost("JWT " + LoginFragment.get_Token(), caption_post, body);
+            Call<ResponseBody> call = service.createPost("JWT " + token, caption_post, body);
 
             call.enqueue(new Callback<ResponseBody>() {
                 @Override

@@ -37,6 +37,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
     private ArrayList<Post>  mPost;
     private Context mContext;
     public static String liked,count;
+    SharedPreferences sharedPref;
 
 
     public PostAdapter(ArrayList<Post> post){
@@ -47,6 +48,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
         View v = LayoutInflater.from(mContext).inflate(R.layout.post_model,parent,false);
+        sharedPref = mContext.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         return new MyViewHolder(v);
     }
 
@@ -72,8 +74,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
         holder.likeCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String token = sharedPref.getString("usertoken","");
                 APIService service = HttpClientService.getClient().create(APIService.class);
-                Call<Like> call = service.createLike(like,"JWT " + LoginFragment.get_Token());
+                Call<Like> call = service.createLike(like,"JWT " + token);
 
                 call.enqueue(new Callback<Like>() {
                     @Override

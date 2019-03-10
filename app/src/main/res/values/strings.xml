@@ -12,4 +12,9 @@
     <string name="reset_password"><u>Reset Password</u></string>
     <string name="Open">open</string>
     <string name="Close">close</string>
+    <string name="user_name">murligoel</string>
+    <string name="user_password">murli</string>
+
+    <string name="login_preference">com.example.android.instagram_login_preference</string>
+    <string name="login_status_preference">com.example.android.instagram_login_status_prefernce</string>
 </resources>

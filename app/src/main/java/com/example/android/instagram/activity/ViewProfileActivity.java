@@ -3,6 +3,7 @@ package com.example.android.instagram.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.UserHandle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,6 +46,7 @@ public class ViewProfileActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private UserPostAdapter eAdapter;
     private ProgressDialog pDialog;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,9 @@ public class ViewProfileActivity extends AppCompatActivity {
         userProfileBio = (TextView) findViewById(R.id.profile_bio);
         userProfileName = (TextView) findViewById(R.id.profile_name);
         editYourProfile = (Button) findViewById(R.id.edit_your_profile);
+
+        sharedPref =  getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_view_profile);
         //to set the action bar
         setSupportActionBar(toolbar);
@@ -89,9 +94,12 @@ public class ViewProfileActivity extends AppCompatActivity {
         progressDialog.setMessage("Profile");
         progressDialog.show();
 
+        String token = sharedPref.getString("usertoken","");
+        String userId = sharedPref.getString("userid","");
+
 
         APIService service = HttpClientService.getClient().create(APIService.class);
-        Call<Profile> call = service.viewProfile(LoginFragment.get_user_id(),"JWT " +LoginFragment.get_Token());
+        Call<Profile> call = service.viewProfile(userId,"JWT " +token);
 
         mContext = getApplicationContext();
 
@@ -106,7 +114,7 @@ public class ViewProfileActivity extends AppCompatActivity {
                     // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     String user_bio = userResponse.body().getBio();
                     userProfileBio.setText("Bio: " +user_bio);
-                    String user_name = userResponse.body().getName();
+                    String user_name = userResponse.body().getUsername();
                     userProfileName.setText("Name: "+user_name);
                     String user_image = userResponse.body().getImage();
                     Picasso.with(mContext)
@@ -141,8 +149,10 @@ public class ViewProfileActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
         pDialog.show();
 
+        String token = sharedPref.getString("usertoken","");
+
         APIService service = HttpClientService.getClient().create(APIService.class);
-        Call<UserPostList> call = service.viewUserPost("JWT " +LoginFragment.get_Token());
+        Call<UserPostList> call = service.viewUserPost("JWT " +token);
 
         call.enqueue(new Callback<UserPostList>() {
             @Override

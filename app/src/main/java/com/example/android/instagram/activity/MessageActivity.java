@@ -1,7 +1,9 @@
 package com.example.android.instagram.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,6 +40,8 @@ public class MessageActivity extends AppCompatActivity {
     private CommentAdapter eAdapter;
     private ProgressDialog pDialog;
 
+    SharedPreferences sharedPref ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +59,10 @@ public class MessageActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+       sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+
+
 
         commenting = (EditText) findViewById(R.id.comment_text);
         postComment = (Button) findViewById(R.id.post_text);
@@ -81,8 +89,10 @@ public class MessageActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
         pDialog.show();
 
+        String token = sharedPref.getString("usertoken","");
+
         APIService service = HttpClientService.getClient().create(APIService.class);
-        Call<CommentList> call = service.getComments(PostAdapter.liked,"JWT " +LoginFragment.get_Token());
+        Call<CommentList> call = service.getComments(PostAdapter.liked,"JWT " +token);
 
         call.enqueue(new Callback<CommentList>() {
             @Override
@@ -122,13 +132,15 @@ public class MessageActivity extends AppCompatActivity {
 
         String post_caption = commenting.getText().toString().trim();
 
+        String token = sharedPref.getString("usertoken","");
+
 
         APIService service = HttpClientService.getClient().create(APIService.class);
 
         RequestBody post_comment = RequestBody.create(MediaType.parse("text/plain"), post_caption);
 
 
-        Call<ResponseBody> call = service.commentPost(PostAdapter.liked,"JWT " + LoginFragment.get_Token(), post_comment);
+        Call<ResponseBody> call = service.commentPost(PostAdapter.liked,"JWT " + token, post_comment);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override

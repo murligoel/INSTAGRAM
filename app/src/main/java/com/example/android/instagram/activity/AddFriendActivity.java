@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,6 +38,8 @@ public class AddFriendActivity extends AppCompatActivity {
     private AddFriendAdapter eAdapter;
     private ArrayList<AddFriendModel> mFriend = new ArrayList<>();
 
+    SharedPreferences sharedPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,9 @@ public class AddFriendActivity extends AppCompatActivity {
 //                onBackPressed();
             }
         });
+
+        sharedPref  = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_add_friend);
         recyclerView.setHasFixedSize(true);
@@ -68,8 +74,9 @@ public class AddFriendActivity extends AppCompatActivity {
 
         APIService service = HttpClientService.getClient().create(APIService.class);
 
+        String token = sharedPref.getString("usertoken","");
 
-        Call<ArrayList<AddFriendModel>> call = service.addFriend("","JWT " + LoginFragment.get_Token());
+        Call<ArrayList<AddFriendModel>> call = service.addFriend("","JWT " + token);
 
         call.enqueue(new Callback<ArrayList<AddFriendModel>>() {
             @Override
@@ -128,8 +135,9 @@ public class AddFriendActivity extends AppCompatActivity {
 
                 APIService service = HttpClientService.getClient().create(APIService.class);
 
+                String token = sharedPref.getString("usertoken","");
 
-                Call<ArrayList<AddFriendModel>> call = service.addFriend(query,"JWT " + LoginFragment.get_Token());
+                Call<ArrayList<AddFriendModel>> call = service.addFriend(query,"JWT " + token);
 
                 call.enqueue(new Callback<ArrayList<AddFriendModel>>() {
                     @Override

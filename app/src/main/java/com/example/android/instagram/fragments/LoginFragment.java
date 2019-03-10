@@ -1,7 +1,9 @@
 package com.example.android.instagram.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -35,6 +37,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private static String token;
     private  static String userId;
 
+    SharedPreferences sharedPref;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -47,6 +50,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
+
+       sharedPref = getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
 
         buttonLogIn = (Button) v.findViewById(R.id.login_button);
 //        activityAfterLogin = (Button) v.findViewById(R.id.activity_after_login);
@@ -91,6 +96,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         String user_name = userName.getText().toString().trim();
         String user_password = password.getText().toString().trim();
 
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("username",user_name);
+        editor.putString("password",user_password);
+        editor.apply();
+
 
         if(user_name.isEmpty()){
             progressDialog.dismiss();
@@ -131,6 +141,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     Toast.makeText(getActivity(), "login success", Toast.LENGTH_LONG).show();
                     userId = userResponse.body().getUserId();
                     Log.e("value",userId+"");
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("userid",userId);
+                    editor.apply();
+
                     getToken();
                     //    SharedPreference.getInstance(getApplicationContext()).;
                     // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
@@ -179,6 +193,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 //                    Toast.makeText(<>, "Please long press the key", Toast.LENGTH_LONG );
 //                    Toast.makeText(getActivity(),response.body().getToken(),Toast.LENGTH_LONG).show();
                     token = response.body().getToken();
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("usertoken",token);
+                    editor.apply();
+
                     Intent intent = new Intent(getActivity(), UserProfileActivity.class);
                     startActivity(intent);
 

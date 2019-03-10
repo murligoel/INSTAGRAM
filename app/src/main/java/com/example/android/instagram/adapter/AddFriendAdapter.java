@@ -3,6 +3,7 @@ package com.example.android.instagram.adapter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ public class AddFriendAdapter extends RecyclerView.Adapter<AddFriendAdapter.MyVi
     private ArrayList<AddFriendModel> mFriend;
     private Context mContext;
     public static String user_id;
+    SharedPreferences sharedPref;
 
     public AddFriendAdapter(ArrayList<AddFriendModel> friend){
         mFriend = friend;
@@ -44,16 +46,17 @@ public class AddFriendAdapter extends RecyclerView.Adapter<AddFriendAdapter.MyVi
     public AddFriendAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         mContext = parent.getContext();
         View v = LayoutInflater.from(mContext).inflate(R.layout.add_friend_model,parent,false);
+        sharedPref = mContext.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         return new MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AddFriendAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final AddFriendAdapter.MyViewHolder holder, int position) {
 
         AddFriendModel currentFriend = mFriend.get(position);
 
         String imageUrl = currentFriend.getImage();
-        final String name = currentFriend.getName();
+        final String name = currentFriend.getUsername();
         final String userId = currentFriend.getId();
 
         holder.nameText.setText(name);
@@ -63,6 +66,7 @@ public class AddFriendAdapter extends RecyclerView.Adapter<AddFriendAdapter.MyVi
                 .fit()
                 .centerCrop()
                 .into(holder.imageView);
+//        myButton.setEnabled(false);
 
         holder.addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,8 +74,10 @@ public class AddFriendAdapter extends RecyclerView.Adapter<AddFriendAdapter.MyVi
 
                 APIService service = HttpClientService.getClient().create(APIService.class);
 
+                String token = sharedPref.getString("usertoken","");
 
-                Call<ResponseBody> call = service.addSearchedFriend(userId,name,"JWT " + LoginFragment.get_Token());
+
+                Call<ResponseBody> call = service.addSearchedFriend(userId,name,"JWT " + token);
 
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -79,7 +85,7 @@ public class AddFriendAdapter extends RecyclerView.Adapter<AddFriendAdapter.MyVi
 
                         if (response.isSuccessful()){
                             Toast.makeText(mContext, "friend added", Toast.LENGTH_LONG).show();
-
+                            holder.addFriend.setEnabled(false);
 
                         }
                         else {

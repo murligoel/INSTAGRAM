@@ -3,6 +3,7 @@ package com.example.android.instagram.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -50,6 +51,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private Context mContext;
     MultipartBody.Part imagenull;
     RequestBody userName,userPhone;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,9 @@ public class EditProfileActivity extends AppCompatActivity {
         buttonProfile = (Button) findViewById(R.id.profile_button);
         image = (CircleImageView) findViewById(R.id.profile_image);
         pickProfileImage = (Button) findViewById(R.id.pick_profile_image_from_gallery);
+
+        sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_edit_profile);
         //to set the action bar
@@ -100,7 +105,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
         APIService service = HttpClientService.getClient().create(APIService.class);
-        Call<Profile> call = service.viewProfile(LoginFragment.get_user_id(),"JWT " +LoginFragment.get_Token());
+
+        String token = sharedPref.getString("usertoken","");
+        String id = sharedPref.getString("userid","");
+
+        Call<Profile> call = service.viewProfile(id,"JWT " +token);
 
         mContext = getApplicationContext();
 
@@ -216,6 +225,8 @@ public class EditProfileActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
+        String token = sharedPref.getString("usertoken","");
+        String id = sharedPref.getString("userid","");
 
         String user_name = bio.getText().toString().trim();
         String phone_number = phoneNumber.getText().toString().trim();
@@ -240,7 +251,7 @@ public class EditProfileActivity extends AppCompatActivity {
             userName = name;
             RequestBody phone = RequestBody.create(MediaType.parse("text/plain"), phone_number);
             userPhone = phone;
-            Call<ResponseBody> call = service.putPost(LoginFragment.get_user_id(), name, phone, "JWT " + LoginFragment.get_Token(), body);
+            Call<ResponseBody> call = service.putPost(id, name, phone, "JWT " + token, body);
 
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -270,7 +281,7 @@ public class EditProfileActivity extends AppCompatActivity {
 //            progressDialog.dismiss();
 //            Toast.makeText(getApplicationContext(), "image required", Toast.LENGTH_SHORT).show();
 
-            Call<ResponseBody> call = service.putPost(LoginFragment.get_user_id(),userName,userPhone,"JWT " + LoginFragment.get_Token(), imagenull);
+            Call<ResponseBody> call = service.putPost(LoginFragment.get_user_id(),userName,userPhone,"JWT " + token, imagenull);
 
             call.enqueue(new Callback<ResponseBody>() {
                 @Override

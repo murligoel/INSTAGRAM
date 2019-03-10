@@ -3,6 +3,7 @@ package com.example.android.instagram.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -64,6 +65,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     Uri image_uri;
     private int count = 0;
     private boolean clickable = true;
+    SharedPreferences sharedPref ;
 
 
     public static Context getContextOfApplication()
@@ -80,6 +82,9 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
+        sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -133,8 +138,10 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         progressDialog.show();
 
         APIService service = HttpClientService.getClient().create(APIService.class);
+        String token = sharedPref.getString("usertoken","");
 
-        Call<ResponseBody> call = service.logOut("JWT " +LoginFragment.get_Token());
+
+        Call<ResponseBody> call = service.logOut("JWT " + token);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -142,6 +149,9 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 progressDialog.dismiss();
                 if(userResponse.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_LONG).show();
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.clear();
+                    editor.commit();
                     // SharedPreference.getInstance(getApplicationContext()).userLogin(user);
                     // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     Intent intent = new Intent(UserProfileActivity.this, FrontPageActivity.class);
@@ -196,8 +206,10 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         pDialog.setCancelable(false);
         pDialog.show();
 
+        String token = sharedPref.getString("usertoken","");
+
         APIService service = HttpClientService.getClient().create(APIService.class);
-        Call<ArrayList<Post>> call = service.viewPost("JWT " +LoginFragment.get_Token());
+        Call<ArrayList<Post>> call = service.viewPost("JWT " +token);
 
         call.enqueue(new Callback<ArrayList<Post>>() {
             @Override
