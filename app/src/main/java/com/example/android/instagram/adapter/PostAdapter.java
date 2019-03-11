@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,10 +61,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
         final String caption = currentPost.getCaption();
         final String userName = currentPost.getName();
         final String like = currentPost.getId();
+        final String like_count = currentPost.getLike();
 
 //        like = currentPost.getId();
-
-
+        holder.likeCountText.setText(like_count);
         holder.captionText.setText(caption);
         holder.nameText.setText(userName);
         Picasso.with(mContext)
@@ -86,9 +87,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
                             Toast.makeText(mContext, response.body().getDetail(), Toast.LENGTH_SHORT).show();
 //                            holder.likeCountText.setText(response.body().getDetail());
                             String user_detail = response.body().getDetail();
-                            SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putString("userlike",user_detail);
-                            editor.apply();
+//                            SharedPreferences.Editor editor = sharedPref.edit();
+//                            editor.putString("userlike",user_detail);
+//                            editor.apply();
 //                            SharedPreferences countSettings = mContext.getSharedPreferences("count",0);
 //                             count = countSettings.getString("counts",""+user_detail);
 //                            final SharedPreferences.Editor edit = countSettings.edit();
@@ -120,13 +121,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
                 Intent messageactivity = new Intent(mContext.getApplicationContext(), MessageActivity.class);
                 mContext.getApplicationContext().startActivity(messageactivity);
                 liked = like;
-                Toast.makeText(mContext,liked, Toast.LENGTH_LONG).show();
+//                Toast.makeText(mContext,liked, Toast.LENGTH_LONG).show();
 
             }
         });
-        String likes = sharedPref.getString("userlike","");
-
-        holder.likeCountText.setText(likes);
+//        String likes = sharedPref.getString("userlike","");
+//
+//        holder.likeCountText.setText(likes);
     }
 
     public static String get_Like() {
@@ -145,7 +146,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
         public TextView captionText,nameText,likeCountText;
-        public Button likeCount,messageComment;
+        public Button likeCount;
+        public ImageButton messageComment;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

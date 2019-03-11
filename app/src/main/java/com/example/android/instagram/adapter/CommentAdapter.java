@@ -71,7 +71,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
                             Toast.makeText(mContext, "delete success", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            Toast.makeText(mContext, "error1", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "this comment belong to someone else you cannot delete it", Toast.LENGTH_SHORT).show();
                         }
                     }
 

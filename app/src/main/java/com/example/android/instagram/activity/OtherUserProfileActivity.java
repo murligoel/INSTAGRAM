@@ -76,7 +76,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
                 progressDialog.dismiss();
 
                 if(userResponse.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
                     //    SharedPreference.getInstance(getApplicationContext()).;
                     // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     String user_bio = userResponse.body().getBio();

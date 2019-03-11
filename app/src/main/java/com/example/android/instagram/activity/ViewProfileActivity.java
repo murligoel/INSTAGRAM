@@ -109,7 +109,7 @@ public class ViewProfileActivity extends AppCompatActivity {
                 progressDialog.dismiss();
 
                 if(userResponse.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
                     //    SharedPreference.getInstance(getApplicationContext()).;
                     // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     String user_bio = userResponse.body().getBio();
@@ -160,7 +160,7 @@ public class ViewProfileActivity extends AppCompatActivity {
                 pDialog.dismiss();
 
                 if (response.isSuccessful()){
-                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
 
                     mPost = response.body().getPost();
 

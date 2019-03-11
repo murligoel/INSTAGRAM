@@ -10,14 +10,16 @@ public class Post {
     private String date_created;
     private String user;
     private String name;
+    private String like;
 
-    public Post(String caption,String picture,String date_created){
+    public Post(String caption,String picture,String date_created,String like){
 //        this.id = id;
 //        this.title = title;
         this.caption = caption;
         this.picture = picture;
 //        this.files = files;
         this.date_created = date_created;
+        this.like = like;
 //        this.user = user;
     }
 
@@ -79,6 +81,14 @@ public class Post {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLike() {
+        return like;
+    }
+
+    public void setLike(String like) {
+        this.like = like;
     }
 
 //    public void setUser(String user) {

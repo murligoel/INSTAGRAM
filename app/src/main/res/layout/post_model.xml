@@ -30,7 +30,8 @@
             android:textSize="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"/>
+            android:layout_marginLeft="5dp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
@@ -51,7 +52,8 @@
             android:layout_height="wrap_content"
             android:text="Caption"
             android:textSize="17dp"
-            android:layout_marginLeft="5dp"/>
+            android:layout_marginLeft="5dp"
+            android:textStyle="bold"/>
 
 
         <LinearLayout
@@ -72,14 +74,23 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:text="count"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textStyle="bold"/>
 
-            <Button
+            <!--<Button-->
+                <!--android:id="@+id/message_comment"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="110dp"-->
+                <!--android:text="comment" />-->
+
+            <ImageButton
                 android:id="@+id/message_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="110dp"
-                android:text="comment" />
+                android:layout_width="157dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="95dp"
+                android:src="@drawable/messagetap"
+                android:background="@color/white"/>
 
 
 

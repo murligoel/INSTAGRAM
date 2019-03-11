@@ -84,7 +84,7 @@ public class AddFriendActivity extends AppCompatActivity {
                 pDialog.dismiss();
 
                 if (response.isSuccessful()){
-                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
 
                     mFriend = response.body();
 
@@ -145,7 +145,7 @@ public class AddFriendActivity extends AppCompatActivity {
                         pDialog.dismiss();
 
                         if (response.isSuccessful()){
-                            Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
 
                             mFriend = response.body();
 

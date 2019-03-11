@@ -111,7 +111,7 @@ public class AddFriendAdapter extends RecyclerView.Adapter<AddFriendAdapter.MyVi
                 mContext.getApplicationContext().startActivity(otherUserProfile);
 //                liked = like;
                 user_id = userId;
-                Toast.makeText(mContext,user_id, Toast.LENGTH_LONG).show();
+//                Toast.makeText(mContext,user_id, Toast.LENGTH_LONG).show();
             }
         });
     }

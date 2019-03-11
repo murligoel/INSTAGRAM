@@ -119,7 +119,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 progressDialog.dismiss();
 
                 if(userResponse.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
                     //    SharedPreference.getInstance(getApplicationContext()).;
                     // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     String user_bio = userResponse.body().getBio();
@@ -258,7 +258,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> userResponse) {
                     progressDialog.dismiss();
                     if (userResponse.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "successful", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(), "successful", Toast.LENGTH_LONG).show();
                         // SharedPreference.getInstance(getApplicationContext()).userLogin(user);
                         // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
 //                    FragmentManager fm = getSupportFragmentManager();
@@ -288,7 +288,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> userResponse) {
                     progressDialog.dismiss();
                     if (userResponse.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "successful", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(), "successful", Toast.LENGTH_LONG).show();
                         // SharedPreference.getInstance(getApplicationContext()).userLogin(user);
                         // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
 //                    FragmentManager fm = getSupportFragmentManager();

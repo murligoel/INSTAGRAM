@@ -128,7 +128,7 @@ public class PostActivity extends AppCompatActivity {
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> userResponse) {
                     progressDialog.dismiss();
                     if (userResponse.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "successful", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(), "successful", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(PostActivity.this,UserProfileActivity.class));
 
                         // SharedPreference.getInstance(getApplicationContext()).userLogin(user);

@@ -100,7 +100,7 @@ public class MessageActivity extends AppCompatActivity {
                 pDialog.dismiss();
 
                 if (response.isSuccessful()){
-                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
 
                     mComment = response.body().getComment();
 
@@ -147,7 +147,7 @@ public class MessageActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> userResponse) {
                 progressDialog.dismiss();
                 if (userResponse.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "successful", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), "successful", Toast.LENGTH_LONG).show();
                     // SharedPreference.getInstance(getApplicationContext()).userLogin(user);
                     // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     createComment();

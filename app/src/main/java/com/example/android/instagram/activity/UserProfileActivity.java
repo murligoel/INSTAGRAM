@@ -217,7 +217,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 pDialog.dismiss();
 
                 if (response.isSuccessful()){
-                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
 
                     mPost = response.body();
 
