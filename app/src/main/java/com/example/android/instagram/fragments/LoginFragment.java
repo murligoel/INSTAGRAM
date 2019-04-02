@@ -77,11 +77,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 startActivity(i);
             }
         });
-
+        controller = (Controller) getActivity().getApplicationContext();
         return v;
     }
 
-    //    Result result = null;
+        Result result = null;
     private void userLogIn(){
 
 //        final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -118,17 +118,17 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         APIService service = HttpClientService.getClient().create(APIService.class);
 
-        Result result = new Result();
+         result = new Result();
 
-//        controller.setResult(result);
+        controller.setResult(result);
 
         result.setUsername(user_name);
         result.setPassword(user_password);
 
 
 
-//        Call<Result> call = service.createUser(controller.getResult());
-        Call<Result> call = service.createUser(result);
+        Call<Result> call = service.createUser(controller.getResult());
+//        Call<Result> call = service.createUser(result);
 
 
 
@@ -170,6 +170,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         return userId;
     }
 
+    Auth auth = null;
     public void getToken(){
 
         String user_name = userName.getText().toString().trim();
@@ -177,12 +178,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         APIService service = HttpClientService.getClient().create(APIService.class);
 
-        Auth auth = new Auth();
+        auth = new Auth();
+        controller.setAuth(auth);
 
         auth.setUsername(user_name);
         auth.setPassword(user_password);
 
-        Call<Auth> call = service.fetchToken(auth);
+        Call<Auth> call = service.fetchToken(controller.getAuth());
 
 
         call.enqueue(new Callback<Auth>() {

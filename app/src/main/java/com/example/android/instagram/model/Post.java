@@ -1,5 +1,9 @@
 package com.example.android.instagram.model;
 
+import com.google.gson.annotations.SerializedName;
+
+import org.json.JSONObject;
+
 public class Post {
 
     private String id;
@@ -11,8 +15,10 @@ public class Post {
     private String user;
     private String name;
     private String like;
+    private JSONObject p;
+    private String image;
 
-    public Post(String caption,String picture,String date_created,String like){
+    public Post(String caption, String picture, String date_created, String like, JSONObject p,String image){
 //        this.id = id;
 //        this.title = title;
         this.caption = caption;
@@ -20,6 +26,8 @@ public class Post {
 //        this.files = files;
         this.date_created = date_created;
         this.like = like;
+        this.p = p;
+        this.image = image;
 //        this.user = user;
     }
 
@@ -89,6 +97,17 @@ public class Post {
 
     public void setLike(String like) {
         this.like = like;
+    }
+
+
+
+
+    public String getImage() {
+        return image;
+    }
+
+    public JSONObject getP() {
+        return p;
     }
 
 //    public void setUser(String user) {

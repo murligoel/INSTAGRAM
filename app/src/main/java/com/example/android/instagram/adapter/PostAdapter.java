@@ -27,6 +27,8 @@ import com.example.android.instagram.model.Like;
 import com.example.android.instagram.model.Post;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
@@ -62,6 +64,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
         final String userName = currentPost.getName();
         final String like = currentPost.getId();
         final String like_count = currentPost.getLike();
+        final JSONObject p = currentPost.getP();
+
+//        final String image = ;
 
 //        like = currentPost.getId();
         holder.likeCountText.setText(like_count);
