@@ -66,34 +66,16 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_edit_profile);
-        //to set the action bar
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Edit Profile");
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Implemented by activity
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
 
         bio = (EditText) findViewById(R.id.profile_username);
-
         phoneNumber = (EditText) findViewById(R.id.profile_phone_number);
-        buttonProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateProfile();
-            }
-        });
-        pickProfileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
+        buttonProfile.setOnClickListener(v -> updateProfile());
+        pickProfileImage.setOnClickListener(v -> openGallery());
 
         viewProfile();
     }
@@ -119,9 +101,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 progressDialog.dismiss();
 
                 if(userResponse.isSuccessful()) {
-//                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
-                    //    SharedPreference.getInstance(getApplicationContext()).;
-                    // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     String user_bio = userResponse.body().getBio();
                     bio.setText(user_bio);
                     String user_number = userResponse.body().getPhone_no();

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,70 +24,52 @@ import com.example.android.instagram.httpservice.HttpClientService;
 import com.example.android.instagram.model.Auth;
 import com.example.android.instagram.model.Result;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class LoginFragment extends Fragment implements View.OnClickListener {
+public class LoginFragment extends Fragment {
 
     private Controller controller;
-    private Button buttonLogIn,activityAfterLogin,signupIntent;
     private EditText userName,password;
     private static String token;
     private  static String userId;
 
     SharedPreferences sharedPref;
 
-    public LoginFragment() {
-        // Required empty public constructor
-    }
-
-
+    public LoginFragment() { }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
-       sharedPref = getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        sharedPref = getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
 
-        buttonLogIn = (Button) v.findViewById(R.id.login_button);
-//        activityAfterLogin = (Button) v.findViewById(R.id.activity_after_login);
-
+        Button buttonLogIn = (Button) v.findViewById(R.id.login_button);
         userName = (EditText) v.findViewById(R.id.login_username);
         password = (EditText) v.findViewById(R.id.login_password);
-        signupIntent = (Button) v.findViewById(R.id.signup_intent);
-        buttonLogIn.setOnClickListener(this);
-//        activityAfterLogin.setOnClickListener(this);
+        Button signupIntent = (Button) v.findViewById(R.id.signup_intent);
 
-        buttonLogIn.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Intent intent = new Intent(getActivity(), UserProfileActivity.class);
-                startActivity(intent);
-                return false;
-            }
+        buttonLogIn.setOnClickListener(v13 -> userLogIn());
+
+        buttonLogIn.setOnLongClickListener(v1 -> {
+            Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+            startActivity(intent);
+            return false;
         });
-        signupIntent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), FrontPageActivity.class);
-                startActivity(i);
-            }
+        signupIntent.setOnClickListener(v12 -> {
+            Intent i = new Intent(getActivity(), FrontPageActivity.class);
+            startActivity(i);
         });
         controller = (Controller) getActivity().getApplicationContext();
         return v;
     }
 
-        Result result = null;
+    Result result = null;
     private void userLogIn(){
 
-//        final ProgressDialog progressDialog = new ProgressDialog(this);
-//        progressDialog.setMessage("Signing Up...");
-//        progressDialog.show();
         final ProgressDialog progressDialog = ProgressDialog.show(getActivity(),
                 "Loging In",
                 "Please wait...",
@@ -100,7 +83,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         editor.putString("username",user_name);
         editor.putString("password",user_password);
         editor.apply();
-
 
         if(user_name.isEmpty()){
             progressDialog.dismiss();
@@ -125,12 +107,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         result.setUsername(user_name);
         result.setPassword(user_password);
 
-
-
         Call<Result> call = service.createUser(controller.getResult());
-//        Call<Result> call = service.createUser(result);
-
-
 
         call.enqueue(new Callback<Result>() {
             @Override
@@ -146,16 +123,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     editor.apply();
 
                     getToken();
-                    //    SharedPreference.getInstance(getApplicationContext()).;
-                    // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                 }
                 else{
                     Toast.makeText(getActivity(), "login not correct", Toast.LENGTH_LONG).show();
                 }
-
             }
-
-
 
             @Override
             public void onFailure( Call<Result> call, Throwable t) {
@@ -163,11 +135,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(), "error", Toast.LENGTH_LONG).show();
             }
         });
-
-    }
-
-    public static String get_user_id() {
-        return userId;
     }
 
     Auth auth = null;
@@ -191,9 +158,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<Auth> call, Response<Auth> response) {
                 if (response.isSuccessful()){
-//                    Toast.makeText(getApplicationContext(), "authentication successfull", Toast.LENGTH_LONG).show();
-//                    Toast.makeText(<>, "Please long press the key", Toast.LENGTH_LONG );
-//                    Toast.makeText(getActivity(),response.body().getToken(),Toast.LENGTH_LONG).show();
                     token = response.body().getToken();
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("usertoken",token);
@@ -210,26 +174,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onFailure(Call<Auth> call, Throwable t) {
-
                 Toast.makeText(getActivity(), "error", Toast.LENGTH_LONG).show();
             }
         });
     }
-    public static String get_Token() {
-        return token;
+
+    public static String get_Token() { return token; }
+
+    public static String get_user_id() {
+        return userId;
     }
 
-
-
-    @Override
-    public void onClick(View v) {
-
-        if(v == buttonLogIn){
-            userLogIn();
-        }
-//        else if(v == activityAfterLogin){
-//            Intent intent = new Intent(getActivity(), UserProfileActivity.class);
-//            startActivity(intent);
-//        }
-    }
 }

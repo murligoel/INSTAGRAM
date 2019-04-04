@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.os.UserHandle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.example.android.instagram.Interface.APIService;
 import com.example.android.instagram.R;
 import com.example.android.instagram.adapter.PostAdapter;
 import com.example.android.instagram.adapter.UserPostAdapter;
+import com.example.android.instagram.databinding.ActivityViewProfileBinding;
 import com.example.android.instagram.fragments.LoginFragment;
 import com.example.android.instagram.httpservice.HttpClientService;
 import com.example.android.instagram.model.CommentList;
@@ -47,11 +49,13 @@ public class ViewProfileActivity extends AppCompatActivity {
     private UserPostAdapter eAdapter;
     private ProgressDialog pDialog;
     SharedPreferences sharedPref;
+    ActivityViewProfileBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_profile);
+
+         binding = DataBindingUtil.setContentView(this,R.layout.activity_view_profile);
 
         circularProfileImage = (CircleImageView) findViewById(R.id.profile_image);
         userProfileBio = (TextView) findViewById(R.id.profile_bio);
@@ -65,27 +69,16 @@ public class ViewProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Profile");
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Implemented by activity
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> { onBackPressed(); });
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_user_post);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ViewProfileActivity.this,LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManager);
-        editYourProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getApplicationContext(), EditProfileActivity.class);
-                startActivity(intent);
-            }
+        editYourProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), EditProfileActivity.class);
+            startActivity(intent);
         });
-
         viewProfile();
     }
 
@@ -113,9 +106,9 @@ public class ViewProfileActivity extends AppCompatActivity {
                     //    SharedPreference.getInstance(getApplicationContext()).;
                     // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     String user_bio = userResponse.body().getBio();
-                    userProfileBio.setText("Bio: " +user_bio);
+//                    userProfileBio.setText("Bio: " +user_bio);
                     String user_name = userResponse.body().getUsername();
-                    userProfileName.setText("Name: "+user_name);
+//                    userProfileName.setText("Name: "+user_name);
                     String user_image = userResponse.body().getImage();
                     Picasso.with(mContext)
                             .load(user_image)
@@ -123,7 +116,10 @@ public class ViewProfileActivity extends AppCompatActivity {
                             .fit()
                             .centerCrop()
                             .into(circularProfileImage);
+                    Profile profile = new Profile(user_name,user_bio);
+                    binding.setProfile(profile);
                     creatingUserPost();
+
 
                 }
                 else{

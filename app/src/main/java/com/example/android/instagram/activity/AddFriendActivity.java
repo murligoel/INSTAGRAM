@@ -48,11 +48,8 @@ public class AddFriendActivity extends AppCompatActivity {
         Toolbar mTopToolbar = (Toolbar) findViewById(R.id.toolbar_add_friend);
         setSupportActionBar(mTopToolbar);
         mTopToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        mTopToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                onBackPressed();
-            }
+        mTopToolbar.setNavigationOnClickListener(v -> {
+            //                onBackPressed();
         });
 
         sharedPref  = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
@@ -84,13 +81,9 @@ public class AddFriendActivity extends AppCompatActivity {
                 pDialog.dismiss();
 
                 if (response.isSuccessful()){
-//                    Toast.makeText(getApplicationContext(), "success1", Toast.LENGTH_LONG).show();
-
                     mFriend = response.body();
-
                     eAdapter = new AddFriendAdapter(mFriend);
                     recyclerView.setAdapter(eAdapter);
-
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "error1", Toast.LENGTH_LONG).show();
@@ -117,7 +110,6 @@ public class AddFriendActivity extends AppCompatActivity {
                 (android.support.v7.widget.SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
-        //initiating the search operation an listening to the callbacks
         searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -125,9 +117,6 @@ public class AddFriendActivity extends AppCompatActivity {
                 searchView.clearFocus();
                 searchView.setQuery("", false);
                 AddFriendActivity.this.setTitle(query);
-//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query=recipe "+query));
-//                startActivity(intent);
-
                 pDialog = new ProgressDialog(AddFriendActivity.this);
                 pDialog.setMessage("Please wait...");
                 pDialog.setCancelable(false);

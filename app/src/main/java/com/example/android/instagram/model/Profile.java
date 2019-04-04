@@ -8,14 +8,16 @@ public class Profile {
     private String image;
     private String username;
 
-    public Profile() {
-    }
-
-
-
-    public void setBio(String bio) {
+    public Profile(String username,String bio) {
+        this.username = username;
         this.bio = bio;
     }
+
+
+
+//    public void setBio(String bio) {
+//        this.bio = bio;
+//    }
 
 
     public String getImage() {
@@ -42,7 +44,7 @@ public class Profile {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
 }
